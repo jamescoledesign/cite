@@ -11,7 +11,7 @@ To search your private libraries, you'll need to provide the plugin your Zotero 
 Figma plugin development information can be found at:
 https://www.figma.com/plugin-docs/plugin-quickstart-guide/
 
-### Download and install node
+### Download and install Node.js
 https://nodejs.org/en/download/
 
 ### Install dependencies
