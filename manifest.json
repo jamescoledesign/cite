@@ -1,0 +1,22 @@
+{
+  "name": "zotero-figma",
+  "id": "1259416813958499299",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma",
+    "figjam"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.zotero.org"
+    ],
+    "reasoning": "This plugin queries api.zotero.org to get saved publications from a user's Zotero library."
+  },
+  "ui": {
+    "main": "pages/main.html",
+    "login": "pages/login.html"
+  }
+}

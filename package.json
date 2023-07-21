@@ -1,0 +1,23 @@
+{
+  "name": "zotero-figma",
+  "version": "1.0.0",
+  "description": "Your Figma Plugin",
+  "main": "code.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "npm run build -- --watch"
+  },
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@figma/plugin-typings": "*",
+    "@types/node": "^20.4.1",
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "zotero-api-client": "^0.41.1"
+  }
+}

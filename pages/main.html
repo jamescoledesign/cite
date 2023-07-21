@@ -1,0 +1,283 @@
+<style>
+
+body {
+    background-color: var(--figma-color-bg);
+    color: var(--figma-color-text);
+    padding: 10px 10px 54px 10px;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    position: relative;
+}
+
+ul { 
+    list-style-type: none;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    border-top: 1px solid rgb(197, 197, 197);
+    padding: 20px 0 20px 0;
+    color: var(--figma-color-text);
+}
+
+li:hover {
+    background-color: var(--figma-color-bg-hover);
+    cursor: pointer;
+}
+
+div.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px 0;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 0px;
+}
+
+form {
+    display: block !important;
+}
+
+div.login {
+    display: none;
+}
+
+div.search-area {
+    margin: 20px 0 0 0;
+}
+
+input {
+    display: block;
+    width: 100%;
+    height: 44px;
+    padding-left: 10px;
+    margin: 10px 0 10px 0;
+}
+
+input.input__field {
+    border: 1px solid rgba(0, 0, 0, .3);
+}
+
+label {
+    font-size: 14px;
+}
+
+button {
+    margin: 10px 0 10px 0;
+    width: 100%;
+}
+
+button.login {
+        max-width: 80px;
+    }
+
+button.large {
+    font-size: 14px;
+    padding: 10px 12px;
+    height: 44px;
+    min-width: 120px;
+}
+
+button.add {
+    margin: 0;
+    display: none;
+    align-self: flex-end;
+    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-height: 60px;
+    background-color: var(--figma-color-bg-selected-strong);
+    color: var(--figma-color-text-onselected);
+    border: 1px solid var(--figma-color-border-selected-strong);
+}
+
+div.results-container {
+    display: none;
+    margin: 10px 0 10px 0;
+    position: relative;
+    z-index: 0;
+}
+
+div.results-toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div.selection-stats {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+div.number-selected {
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+div.search-result-section {
+    margin: 20px 0;
+    color: var(--figma-color-text);
+}
+
+div.plugin-message {
+    display: none;
+}
+
+div.success {
+    margin: 0 auto;
+    background-color: var(--figma-color-bg-success-tertiary);
+    color: var(--figma-color-text-success);
+    margin: 20px 0 0 0;
+    padding: 20px;
+    text-align: center;
+}
+
+</style>
+
+<body>
+
+<div class="top">
+    <h1>Search</h1>
+    <button class="button login" onclick="openLogin()">Logout</button>
+</div>
+
+
+<div class="search-area">
+    <label for="Search">Search Zotero</label>
+    <input id="search-field" class="input__field" placeholder="Enter search terms" type="text" required>
+    <button class="button large" id="submit-query" onclick="checkInput()">Search</button>
+<div>
+
+<div id="results" class="results-container">
+    <div class="results-toolbar">
+        <h2>Results</h2>
+        <div class="selection-stats">
+            <div id="number-of-selections" class="number-selected">0 selected</div>
+            <button class="button" id="clear-all">Reset</button>
+        </div>
+    </div>
+    <div class="search-result-section" id="search-results">Loading...</div>
+</div>
+
+
+<div id="plugin-message" class="plugin-message">
+    <div class="success">✓ Success</div>
+    <button class="button large" onclick="clearAll()">Reset</button>
+</div>
+
+<button class="button large add" id="add-selection">Add to Figma</button>
+
+</body>
+
+<script>
+
+    // only search if there's data in the input field
+    function checkInput() {
+        const searchTerm = document.getElementById('search-field').value;
+        let exists = false;
+        if (searchTerm == "") {
+            return exists
+        } else {
+            clearAll();
+            sendToZotero(searchTerm);
+        }
+    } 
+
+    // listen for Enter key
+    document.getElementById('search-field').addEventListener('keypress', function(event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                checkInput();
+            }
+        });
+
+    // send search term to Zotero
+    function sendToZotero(keyword) {
+        const search = true;
+        const searchResults = document.getElementById('search-results').innerHTML;
+        console.log(keyword);
+        document.getElementById('add-selection').style.display = "none";
+        document.getElementById('results').style.display = "unset";
+        parent.postMessage({pluginMessage: {search, keyword, searchResults}}, '*');
+    }
+
+    // load search results in UI
+    onmessage = (event) => {
+        const clear = true;
+        let results = event.data.pluginMessage;
+        let item = 1;
+        if (typeof results === "object") {
+            console.log(results + "it's an object")
+            // create new html
+        let resultsList =
+            '<ul>' +
+                results.map(function (result) {
+                    let itemId = `li${item++}`;
+                    return `<li id='${itemId}' onclick='passToFigma("${itemId}")'>${result.title}</li>`;
+
+                }).join('') +
+            '</ul>';
+            // add list to doc
+            document.getElementById('search-results').innerHTML = resultsList;
+
+        } else {
+            document.getElementById('number-of-selections').innerHTML = results + " selected";
+            
+            document.getElementById('add-selection').style.display = "unset";
+        }
+    }
+    
+    // pass selection back to Figma
+    function passToFigma(id) {
+        let clickedItem = document.getElementById(id);
+        document.getElementById('add-selection').style.display = "unset";
+        clickedItem.style.backgroundColor = "var(--figma-color-bg-success-tertiary)";
+        clickedItem.style.color = "var(--figma-color-text-success)";
+        selection = clickedItem.innerHTML;
+        parent.postMessage({pluginMessage: {selection}}, '*');
+    }
+
+    // same as above
+    function clearAll() {
+        const clear = true;
+        document.getElementById('number-of-selections').innerHTML = "";
+        document.getElementById('results').style.display = "none";
+        document.getElementById('add-selection').style.display = "none";
+        document.getElementById('plugin-message').style.display = "none";
+        parent.postMessage({pluginMessage: {clear}}, '*');
+    }
+
+    // Submit selection to Figma and write text node
+    document.getElementById('add-selection').onclick = () => {
+        const submit = true;
+        const clear = true;
+        parent.postMessage({pluginMessage: {submit, clear}}, '*');
+        document.getElementById('search-field').value = "Enter search terms";
+        document.getElementById('number-of-selections').innerHTML = "";
+        document.getElementById('results').style.display = "none";
+        document.getElementById('add-selection').style.display = "none";
+        document.getElementById('plugin-message').style.display = "unset";
+    }
+
+    function openLogin() {
+        let login = true;
+        parent.postMessage({pluginMessage: {login}}, '*'); 
+    }
+    
+  </script>
