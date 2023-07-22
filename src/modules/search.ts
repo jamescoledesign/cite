@@ -32,8 +32,8 @@ export async function searchZotero(query: string) {
 
 // reset UI without closing plugin
 export function clearEverything(clear: boolean) {
-    arr = [];
-    length = 0;
-    console.log("reset button clicked")
+    arr = []; // not working currently
+    length = 0; // not working currently
+    console.log("reset button clicked");
     clear = false;
 }

@@ -3,7 +3,7 @@
 body {
     background-color: var(--figma-color-bg);
     color: var(--figma-color-text);
-    padding: 10px 10px 54px 10px;
+    padding: 0 0 54px 0;
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
@@ -19,14 +19,17 @@ ul {
 }
 
 li {
-    border-top: 1px solid rgb(197, 197, 197);
-    padding: 20px 0 20px 0;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--figma-color-bg-hover);
     color: var(--figma-color-text);
+    padding: 20px 10px 20px 10px;
+    font-size: 14px;
 }
 
 li:hover {
     background-color: var(--figma-color-bg-hover);
     cursor: pointer;
+    border-radius: 6px;
 }
 
 div.top {
@@ -35,6 +38,7 @@ div.top {
     justify-content: space-between;
     align-items: center;
     margin: 0 0 10px 0;
+    padding: 0 10px;
 }
 
 h1 {
@@ -45,6 +49,10 @@ h1 {
 h2 {
     font-size: 20px;
     margin: 0px;
+}
+
+div.container {
+    padding: 0 10px;
 }
 
 form {
@@ -112,18 +120,32 @@ select:focus {
 
 button {
     margin: 10px 0 10px 0;
-    width: 100%;
+    min-width: 80px;
 }
 
 button.login {
-        max-width: 80px;
-    }
+    max-width: 80px;
+}
+
+button.small {
+    margin: 10px 0 10px 0;
+    min-width: 80px;
+    background-color: var(--figma-color-bg);
+    color: var(--figma-color-text);
+    border: 1px solid var(--figma-color-border-strong);
+}
+
+button.small:hover {
+    opacity: .9;
+    cursor: pointer;
+}
 
 button.large {
     font-size: 14px;
     padding: 10px 12px;
     height: 44px;
     min-width: 120px;
+    width: 100%;
 }
 
 button.add {
@@ -140,7 +162,7 @@ button.add {
     border: 1px solid var(--figma-color-border-selected-strong);
 }
 
-div.results-container {
+div.results {
     display: none;
     margin: 10px 0 10px 0;
     position: relative;
@@ -158,6 +180,8 @@ div.selection-stats {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 div.number-selected {
@@ -166,7 +190,7 @@ div.number-selected {
 }
 
 div.search-result-section {
-    margin: 20px 0;
+    margin: 0 0 20px 0;
     color: var(--figma-color-text);
 }
 
@@ -192,33 +216,31 @@ div.success {
     <button class="button login" onclick="openLogin()">Configure</button>
 </div>
 
+<div class="container">
+    <form class="search-area">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><g id="magnifying-glass--glass-search-magnifying"><path id="Vector" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" d="M6 11.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z"></path><path id="Vector_2" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" d="M13.5 13.5 10 10"></path></g></svg>
 
-<form class="search-area">
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><g id="magnifying-glass--glass-search-magnifying"><path id="Vector" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" d="M6 11.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z"></path><path id="Vector_2" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" d="M13.5 13.5 10 10"></path></g></svg>
+        <input id="search-field" class="input__field searchfield" placeholder="Search..." type="search" required>
 
-    <input id="search-field" class="input__field searchfield" placeholder="Search..." type="search" required>
+        <!--<button class="button large" id="submit-query" onclick="checkInput()">Search</button>-->
 
-    <!--<button class="button large" id="submit-query" onclick="checkInput()">Search</button>-->
+        <select id="options" name="search-options">
+            <option value="everything">All</option>
+            <option value="title-creator-year">Title</option>
+            <option value="all-fields-tags">Authors</option>
+        </select>
+    </form>
+</div>
 
-    <select id="options" name="search-options">
-        <option value="everything">All</option>
-        <option value="title-creator-year">Title</option>
-        <option value="all-fields-tags">Authors</option>
-    </select>
-</form>
-
-
-<div id="results" class="results-container">
+<div id="results" class="results container">
     <div class="results-toolbar">
-        <h2>Results</h2>
         <div class="selection-stats">
             <div id="number-of-selections" class="number-selected">0 selected</div>
-            <button class="button" id="clear-all">Reset</button>
+            <button class="button small" id="clear-all" onclick="clearAll()">Reset</button>
         </div>
     </div>
     <div class="search-result-section" id="search-results">Loading...</div>
 </div>
-
 
 <div id="plugin-message" class="plugin-message">
     <div class="success">✓ Success</div>
@@ -230,7 +252,6 @@ div.success {
 </body>
 
 <script>
-
     // only search if there's data in the input field
     function checkInput() {
         const searchTerm = document.getElementById('search-field').value;
@@ -312,7 +333,6 @@ div.success {
         const submit = true;
         const clear = true;
         parent.postMessage({pluginMessage: {submit, clear}}, '*');
-        document.getElementById('search-field').value = "Enter search terms";
         document.getElementById('number-of-selections').innerHTML = "";
         document.getElementById('results').style.display = "none";
         document.getElementById('add-selection').style.display = "none";
