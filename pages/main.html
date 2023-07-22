@@ -48,31 +48,50 @@ h2 {
 }
 
 form {
-    display: block !important;
+    display: flex !important;
+    flex-direction: row;
+    margin: 0;
+    width: 100%;
+    border-radius: 6px;
 }
 
-div.login {
-    display: none;
+form:focus-within {
+    outline: 2px solid var(--figma-color-bg-selected-strong);
+    outline-offset: 2px;
 }
 
-div.search-area {
-    margin: 20px 0 0 0;
+label {
+    font-size: 14px;
 }
 
 input {
-    display: block;
     width: 100%;
     height: 44px;
-    padding-left: 10px;
+    padding: 0 10px;
     margin: 10px 0 10px 0;
+    background-color: #ffffff;
+    border-radius: 0 6px 6px 0;
 }
 
 input.input__field {
     border: 1px solid rgba(0, 0, 0, .3);
 }
 
-label {
-    font-size: 14px;
+input.searchfield {
+    border: unset;
+    margin: 0;
+}
+
+input.searchfield:focus {
+    outline: none;
+}
+
+svg.icon {
+    width: 18px;
+    padding-left: 10px;
+    color: var(--figma-color-bg);
+    background-color: #ffffff;
+    border-radius: 6px 0 0 6px;
 }
 
 button {
@@ -158,11 +177,14 @@ div.success {
 </div>
 
 
-<div class="search-area">
-    <label for="Search">Search Zotero</label>
-    <input id="search-field" class="input__field" placeholder="Enter search terms" type="text" required>
-    <button class="button large" id="submit-query" onclick="checkInput()">Search</button>
-<div>
+<form class="search-area">
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><g id="magnifying-glass--glass-search-magnifying"><path id="Vector" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" d="M6 11.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z"></path><path id="Vector_2" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" d="M13.5 13.5 10 10"></path></g></svg>
+
+    <input id="search-field" class="input__field searchfield" placeholder="Search..." type="search" required>
+
+    <!--<button class="button large" id="submit-query" onclick="checkInput()">Search</button>-->
+</form>
+
 
 <div id="results" class="results-container">
     <div class="results-toolbar">
