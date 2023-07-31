@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../src/style.css">
+
 <style>
 
 body {
@@ -286,16 +288,32 @@ div.success {
     onmessage = (event) => {
         const clear = true;
         let results = event.data.pluginMessage;
+        console.log(results);
         let item = 1;
         if (typeof results === "object") {
-            console.log(results + "it's an object")
-            // create new html
+            // create new html, need to break title and author lines
         let resultsList =
             '<ul>' +
                 results.map(function (result) {
-                    let itemId = `li${item++}`;
-                    return `<li id='${itemId}' onclick='passToFigma("${itemId}")'>${result.title}</li>`;
 
+                    let title = result.title;
+                    let authors = result.authors;
+                    let authorArr = [];
+
+                    if (typeof authors == "undefined") {
+                        authorArr.push("Authors not provided");
+                    } else {
+                        authors.forEach(element => {
+                            author = element.lastName + ", " + element.firstName;
+                            authorArr.push(author);
+                        });
+                    }
+                    let itemId = `li${item++}`;
+                    return `
+                    <li id='${itemId}' 
+                    onclick='passToFigma("${itemId}")'>${title} By: ${authorArr}           
+                    </li>
+                    `;
                 }).join('') +
             '</ul>';
             // add list to doc
@@ -314,7 +332,7 @@ div.success {
         document.getElementById('add-selection').style.display = "unset";
         clickedItem.style.backgroundColor = "var(--figma-color-bg-success-tertiary)";
         clickedItem.style.color = "var(--figma-color-text-success)";
-        selection = clickedItem.innerHTML;
+        selection = clickedItem.innerHTML; // change this 
         parent.postMessage({pluginMessage: {selection}}, '*');
     }
 
@@ -332,11 +350,11 @@ div.success {
     document.getElementById('add-selection').onclick = () => {
         const submit = true;
         const clear = true;
-        parent.postMessage({pluginMessage: {submit, clear}}, '*');
         document.getElementById('number-of-selections').innerHTML = "";
         document.getElementById('results').style.display = "none";
         document.getElementById('add-selection').style.display = "none";
         document.getElementById('plugin-message').style.display = "unset";
+        parent.postMessage({pluginMessage: {submit, clear}}, '*');
     }
 
     function openLogin() {

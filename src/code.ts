@@ -43,6 +43,8 @@ figma.ui.onmessage = async (pluginMessage) => {
 
   // load fonts
   await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+  await figma.loadFontAsync({ family: "Inter", style: "Medium" });
+  await figma.loadFontAsync({ family: "Inter", style: "Bold" });
 
   // change all of these to switch statements 
 
@@ -53,7 +55,7 @@ figma.ui.onmessage = async (pluginMessage) => {
 
   if (done) {
     loadPage("main");
-    resizeUI()
+    resizeUI();
   }
 
   if (deleteKeys) {

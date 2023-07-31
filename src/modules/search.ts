@@ -14,8 +14,8 @@ export async function searchZotero(query: string) {
 
     // create HTML elements for each search result
     results.forEach((element: any) => {
-        let creators = element.data.creators;
         let title = element.data.title;
+        let creators = element.data.creators;
 
         const work = {
         title: title,
@@ -24,8 +24,6 @@ export async function searchZotero(query: string) {
 
         arr.push(work);
     });
-
-    console.log(arr);
     
     figma.ui.postMessage(arr); // send arr to Figma
 }
