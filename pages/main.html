@@ -149,30 +149,40 @@ div.results-list {
 }
 
 div.results-container {
-    display: flex;
-    margin: 0 auto;
+    display: none;
     padding: 20px 10px 20px 10px;
+    
+}
+
+div.result-item {
+    border-radius: 6px;
     border-bottom: 1px solid var(--figma-color-bg-hover);
+    padding: 20px 10px 20px 10px;
+}
+
+div.result-item:hover {
+    background-color: var(--figma-color-bg-hover);
+    cursor: pointer;
+    border-radius: 6px;
 }
 
 div.title {
     font-size: 16px;
+    line-height: 22px;
     font-weight: 500;
     color: var(--figma-color-text);
 }
 
 div.author {
     font-size: 14px;
+    line-height: 20px;
     color: var(--figma-color-text);
     padding-top: 10px;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
-div.results-container:hover {
-    background-color: var(--figma-color-bg-hover);
-    cursor: pointer;
-    border-radius: 6px;
-}
+
+
 
 div.results-toolbar {
     display: flex;
@@ -303,10 +313,14 @@ div.success {
         console.log(results);
         let item = 1;
         if (typeof results === "object") {
-            // create new html, need to break title and author lines
+        // pass search results to UI
         let resultsList =
             '<div class="results-list">' +
                 results.map(function (result) {
+
+                    let itemId = `item${item++}`;
+                    let titleId = `title-${itemId}`;
+                    let authorId = `authors-${itemId}`;
 
                     title = result.title;
                     authors = result.authors;
@@ -320,11 +334,9 @@ div.success {
                             authorArr.push(author);
                         });
                     }
-                    let itemId = `item${item++}`;
-                    let titleId = `title-${itemId}`;
-                    let authorId = `authors-${itemId}`;
+
                     return `
-                    <div id='${itemId}' class='result-container'><div id='${titleId}' class='title' onclick='makeSelection("${itemId}", "${title}", "${authorArr}")'>${title}</div><div id='${authorId}' class='author'>${authorArr}</div>
+                    <div id='${itemId}' class='result-item'><div id='${titleId}' class='title' onclick='makeSelection("${itemId}", "${title}", "${authorArr}")'>${title}</div><div id='${authorId}' class='author'>${authorArr}</div>
                     </div>
                     `;
                 }).join('') +
