@@ -1,4 +1,4 @@
-# FigTero
+# Cite
 
 ## About
 
