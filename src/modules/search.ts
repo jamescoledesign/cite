@@ -1,7 +1,5 @@
 let arr: any[] = [];
 
-export let length = arr.length;
-
 // search Zotero
 export async function searchZotero(query: string) {
 
@@ -24,14 +22,11 @@ export async function searchZotero(query: string) {
 
         arr.push(work);
     });
-    
     figma.ui.postMessage(arr); // send arr to Figma
 }
 
 // reset UI without closing plugin
 export function clearEverything(clear: boolean) {
-    arr = []; // not working currently
-    length = 0; // not working currently
     console.log("reset button clicked");
     clear = false;
 }

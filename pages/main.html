@@ -13,27 +13,6 @@ body {
     position: relative;
 }
 
-ul { 
-    list-style-type: none;
-    list-style-position: inside;
-    margin: 0;
-    padding: 0;
-}
-
-li {
-    margin: 0 auto;
-    border-bottom: 1px solid var(--figma-color-bg-hover);
-    color: var(--figma-color-text);
-    padding: 20px 10px 20px 10px;
-    font-size: 14px;
-}
-
-li:hover {
-    background-color: var(--figma-color-bg-hover);
-    cursor: pointer;
-    border-radius: 6px;
-}
-
 div.top {
     display: flex;
     flex-direction: row;
@@ -164,11 +143,35 @@ button.add {
     border: 1px solid var(--figma-color-border-selected-strong);
 }
 
-div.results {
-    display: none;
-    margin: 10px 0 10px 0;
-    position: relative;
-    z-index: 0;
+div.results-list { 
+    margin: 0;
+    padding: 0;
+}
+
+div.results-container {
+    display: flex;
+    margin: 0 auto;
+    padding: 20px 10px 20px 10px;
+    border-bottom: 1px solid var(--figma-color-bg-hover);
+}
+
+div.title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--figma-color-text);
+}
+
+div.author {
+    font-size: 14px;
+    color: var(--figma-color-text);
+    padding-top: 10px;
+    opacity: 0.8;
+}
+
+div.results-container:hover {
+    background-color: var(--figma-color-bg-hover);
+    cursor: pointer;
+    border-radius: 6px;
 }
 
 div.results-toolbar {
@@ -192,6 +195,8 @@ div.number-selected {
 }
 
 div.search-result-section {
+    display: flex;
+    flex-direction: column;
     margin: 0 0 20px 0;
     color: var(--figma-color-text);
 }
@@ -234,14 +239,16 @@ div.success {
     </form>
 </div>
 
-<div id="results" class="results container">
+<div id="all-results" class="results-container">
+    <!--
     <div class="results-toolbar">
         <div class="selection-stats">
             <div id="number-of-selections" class="number-selected">0 selected</div>
             <button class="button small" id="clear-all" onclick="clearAll()">Reset</button>
         </div>
     </div>
-    <div class="search-result-section" id="search-results">Loading...</div>
+    -->
+    <div id="search-results" class="search-result-section">Loading...</div>
 </div>
 
 <div id="plugin-message" class="plugin-message">
@@ -254,6 +261,11 @@ div.success {
 </body>
 
 <script>
+
+    let title, authors, selectionTitle, selectionAuthors;
+    let authorArr = [];
+    let clicked = false;
+
     // only search if there's data in the input field
     function checkInput() {
         const searchTerm = document.getElementById('search-field').value;
@@ -280,7 +292,7 @@ div.success {
         const searchResults = document.getElementById('search-results').innerHTML;
         console.log(keyword);
         document.getElementById('add-selection').style.display = "none";
-        document.getElementById('results').style.display = "unset";
+        document.getElementById('all-results').style.display = "unset";
         parent.postMessage({pluginMessage: {search, keyword, searchResults}}, '*');
     }
 
@@ -293,12 +305,12 @@ div.success {
         if (typeof results === "object") {
             // create new html, need to break title and author lines
         let resultsList =
-            '<ul>' +
+            '<div class="results-list">' +
                 results.map(function (result) {
 
-                    let title = result.title;
-                    let authors = result.authors;
-                    let authorArr = [];
+                    title = result.title;
+                    authors = result.authors;
+                    authorArr = []; // clear each time
 
                     if (typeof authors == "undefined") {
                         authorArr.push("Authors not provided");
@@ -308,39 +320,45 @@ div.success {
                             authorArr.push(author);
                         });
                     }
-                    let itemId = `li${item++}`;
+                    let itemId = `item${item++}`;
+                    let titleId = `title-${itemId}`;
+                    let authorId = `authors-${itemId}`;
                     return `
-                    <li id='${itemId}' 
-                    onclick='passToFigma("${itemId}")'>${title} By: ${authorArr}           
-                    </li>
+                    <div id='${itemId}' class='result-container'><div id='${titleId}' class='title' onclick='makeSelection("${itemId}", "${title}", "${authorArr}")'>${title}</div><div id='${authorId}' class='author'>${authorArr}</div>
+                    </div>
                     `;
                 }).join('') +
-            '</ul>';
-            // add list to doc
+            '</div>';
+            // add list to UI
             document.getElementById('search-results').innerHTML = resultsList;
-
         } else {
-            document.getElementById('number-of-selections').innerHTML = results + " selected";
-            
             document.getElementById('add-selection').style.display = "unset";
         }
     }
-    
-    // pass selection back to Figma
-    function passToFigma(id) {
+
+    function makeSelection(id, title, authors) {
         let clickedItem = document.getElementById(id);
-        document.getElementById('add-selection').style.display = "unset";
-        clickedItem.style.backgroundColor = "var(--figma-color-bg-success-tertiary)";
-        clickedItem.style.color = "var(--figma-color-text-success)";
-        selection = clickedItem.innerHTML; // change this 
-        parent.postMessage({pluginMessage: {selection}}, '*');
+        let addSelection = document.getElementById('add-selection')
+        if (clicked === false) {
+            addSelection.style.display = "unset";
+            clickedItem.style.backgroundColor = "var(--figma-color-bg-success-tertiary)";
+            clickedItem.style.color = "var(--figma-color-text-success)";
+            selectionTitle = title; 
+            selectionAuthors = authors;
+            clicked = true;
+        } else if (clicked === true) {
+            addSelection.style.display = "none";
+            clickedItem.style.backgroundColor = "var(--figma-color-bg)";
+            clickedItem.style.color = "var(--figma-color-text)";
+            clicked = false;
+        }
+        parent.postMessage({pluginMessage: {selectionTitle, selectionAuthors}}, '*');
     }
 
-    // same as above
+    // clear search results
     function clearAll() {
         const clear = true;
-        document.getElementById('number-of-selections').innerHTML = "";
-        document.getElementById('results').style.display = "none";
+        document.getElementById('all-results').style.display = "none";
         document.getElementById('add-selection').style.display = "none";
         document.getElementById('plugin-message').style.display = "none";
         parent.postMessage({pluginMessage: {clear}}, '*');
@@ -350,11 +368,10 @@ div.success {
     document.getElementById('add-selection').onclick = () => {
         const submit = true;
         const clear = true;
-        document.getElementById('number-of-selections').innerHTML = "";
-        document.getElementById('results').style.display = "none";
+        document.getElementById('all-results').style.display = "none";
         document.getElementById('add-selection').style.display = "none";
         document.getElementById('plugin-message').style.display = "unset";
-        parent.postMessage({pluginMessage: {submit, clear}}, '*');
+        parent.postMessage({pluginMessage: {submit, selectionTitle, selectionAuthors}}, '*');
     }
 
     function openLogin() {

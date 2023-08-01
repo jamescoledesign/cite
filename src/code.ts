@@ -1,11 +1,8 @@
 // import './style.css'; // not working currently, might need to generate jsx
 import { authenticate } from './modules/authenticate';
-import { length, searchZotero, clearEverything } from './modules/search';
-import { submitQuery } from './modules/submit'
-import { loadPage } from './modules/nav'
-
-let searchLength = length;
-let selectedArr: any[] = [];
+import { searchZotero, clearEverything } from './modules/search';
+import { submitChoices } from './modules/submit'
+import { loadPage } from './modules/nav';
 
 function resizeUI() {
   figma.ui.resize(300,500);
@@ -33,7 +30,9 @@ figma.ui.onmessage = async (pluginMessage) => {
 
   let search = pluginMessage.search;
   let searchTerm = pluginMessage.keyword; // query
-  let select = pluginMessage.selection;
+  let selectionTitle = pluginMessage.selectionTitle;
+  let selectionAuthors = pluginMessage.selectionAuthors;
+
   let submit = pluginMessage.submit;
   let clear = pluginMessage.clear;
 
@@ -86,18 +85,13 @@ figma.ui.onmessage = async (pluginMessage) => {
   }
 
   // handle click selection
-  if (select) {
-    searchLength ++; // this isn't working properly
-    console.log(searchLength)
-    console.log(select + " selected")
-    selectedArr.push(select);
-    // update number selected in UI
-    figma.ui.postMessage(searchLength);
+  if (selectionTitle) {
+  console.log(selectionTitle, selectionAuthors);
   }
 
   // handle submit
   if (submit) {
-    submitQuery(selectedArr.length, selectedArr);
+    submitChoices(1, selectionTitle, selectionAuthors);
   }
 
   // handle reset

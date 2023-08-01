@@ -1,4 +1,4 @@
-export async function submitQuery(length: number, titleArr: Object[]) {
+export async function submitChoices(length: number, titleStr: string, authorArr: String[]) {
     if (length === 0) {
         console.log("nothing to add")
     } else {
@@ -9,13 +9,11 @@ export async function submitQuery(length: number, titleArr: Object[]) {
         const titleText = figma.createText();
         const authorText = figma.createText();
 
-        let title = titleArr.toString();
-        let authors = "author 1, author 2, author 3" // add here
+        let title = titleStr; // writes to figma
+        let authors = authorArr.toString(); // writes to figma
 
         titleText.characters = title;
         authorText.characters = authors;
-
-        authorText.characters = "Author 1, Author 2, Author 3, Author 4, Author 5";
 
         frame.appendChild(titleText);
         frame.appendChild(authorText);
