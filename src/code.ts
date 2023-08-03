@@ -5,7 +5,7 @@ import { submitChoices } from './modules/submit'
 import { loadPage } from './modules/nav';
 
 function resizeUI() {
-  figma.ui.resize(300,500);
+  figma.ui.resize(360,540);
 }
 
 // load plugin UI
@@ -38,7 +38,7 @@ figma.ui.onmessage = async (pluginMessage) => {
 
   let login = pluginMessage.login;
   let done = pluginMessage.done;
-  let deleteKeys = pluginMessage.deletKeys;
+  let deleteKeys = pluginMessage.deleteKeys;
 
   // load fonts
   await figma.loadFontAsync({ family: "Inter", style: "Regular" });
@@ -61,7 +61,7 @@ figma.ui.onmessage = async (pluginMessage) => {
     figma.clientStorage.deleteAsync('userId');
     figma.clientStorage.deleteAsync('apiKey');
     console.log(figma.clientStorage.keysAsync());
-    loadPage("login");
+    // loadPage("login");
     resizeUI();
   }
 

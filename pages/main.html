@@ -2,9 +2,21 @@
 
 <style>
 
+:root {
+  --main-bg: #ffffff;
+  --main-bg-hover: #F0F0F0;
+  --secondary-bg: #2C2C2C;
+  --main-text: rgba(0, 0, 0, 0.90);
+  --main-blue: #0D99FF;
+  --light-border: rgba(0, 0, 0, 0.10);
+  --main-bg-success-tertiary: #cff7d3;
+  --main-text-success: #009951;
+}
+
+
 body {
-    background-color: var(--figma-color-bg);
-    color: var(--figma-color-text);
+    background-color: var(--main-bg);
+    color: var(--main-text);
     padding: 0 0 54px 0;
     font-family: sans-serif;
     display: flex;
@@ -13,13 +25,63 @@ body {
     position: relative;
 }
 
-div.top {
+div.container {
+    padding: 10px 10px 54px 10px;
+}
+
+a.nav-link {
+    color: var(--main-text);
+    text-decoration-line: none;
+}
+
+a.link {
+    color: var(--main-text);
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: -0.084px;
+    margin-top: 20px;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+nav {
     display: flex;
-    flex-direction: row;
+    max-width: 100%;
+    height: 40px;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 10px 0;
-    padding: 0 10px;
+    flex-shrink: 0;  
+    border-bottom: 1px solid var(--light-border);
+    padding: 0 8px 0px 16px;
+}
+
+ul { 
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+li {
+    color: var(--main-text);
+    font-family: Inter, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 145.455% */
+    letter-spacing: 0.055px;
+    margin-right: 16px;
+}
+
+li:hover {
+    cursor: pointer;
 }
 
 h1 {
@@ -32,8 +94,10 @@ h2 {
     margin: 0px;
 }
 
-div.container {
+div.search-container {
     padding: 0 10px;
+    border-bottom: 1px solid var(--light-border);
+    
 }
 
 form {
@@ -47,7 +111,7 @@ form {
 }
 
 form:focus-within {
-    outline: 2px solid var(--figma-color-bg-selected-strong);
+    outline: 2px solid var(--main-bg-selected-strong);
     outline-offset: 2px;
 }
 
@@ -57,7 +121,7 @@ label {
 
 input {
     width: 100%;
-    height: 44px;
+    height: 40px;
     padding: 0 10px;
     margin: 10px 0 10px 0;
 }
@@ -79,7 +143,7 @@ svg.icon {
     min-width: 14px;
     max-width: 14px;
     padding-left: 10px;
-    color: var(--figma-color-bg);
+    color: var(--main-bg);
     border-radius: 6px 0 0 6px;
 }
 
@@ -111,8 +175,8 @@ button.login {
 button.small {
     margin: 10px 0 10px 0;
     min-width: 80px;
-    background-color: var(--figma-color-bg);
-    color: var(--figma-color-text);
+    background-color: var(--main-bg);
+    color: var(--main-text);
     border: 1px solid var(--figma-color-border-strong);
 }
 
@@ -138,9 +202,9 @@ button.add {
     bottom: 0;
     left: 0;
     min-height: 60px;
-    background-color: var(--figma-color-bg-selected-strong);
-    color: var(--figma-color-text-onselected);
-    border: 1px solid var(--figma-color-border-selected-strong);
+    background-color: var(--main-blue);
+    color: white;
+    border: none;
 }
 
 div.results-list { 
@@ -150,18 +214,18 @@ div.results-list {
 
 div.results-container {
     display: none;
-    padding: 20px 10px 20px 10px;
+    padding: 10px;
     
 }
 
 div.result-item {
     border-radius: 6px;
-    border-bottom: 1px solid var(--figma-color-bg-hover);
+    border-bottom: 1px solid var(--main-bg-hover);
     padding: 20px 10px 20px 10px;
 }
 
 div.result-item:hover {
-    background-color: var(--figma-color-bg-hover);
+    background-color: var(--main-bg-hover);
     cursor: pointer;
     border-radius: 6px;
 }
@@ -170,13 +234,13 @@ div.title {
     font-size: 16px;
     line-height: 22px;
     font-weight: 500;
-    color: var(--figma-color-text);
+    color: var(--main-text);
 }
 
 div.author {
     font-size: 14px;
     line-height: 20px;
-    color: var(--figma-color-text);
+    color: var(--main-text);
     padding-top: 10px;
     opacity: 0.7;
 }
@@ -205,7 +269,7 @@ div.search-result-section {
     display: flex;
     flex-direction: column;
     margin: 0 0 20px 0;
-    color: var(--figma-color-text);
+    color: var(--main-text);
 }
 
 div.plugin-message {
@@ -214,8 +278,8 @@ div.plugin-message {
 
 div.success {
     margin: 0 auto;
-    background-color: var(--figma-color-bg-success-tertiary);
-    color: var(--figma-color-text-success);
+    background-color: var(--main-bg-success-tertiary);
+    color: var(--main-text-success);
     margin: 20px 0 0 0;
     padding: 20px;
     text-align: center;
@@ -224,13 +288,18 @@ div.success {
 </style>
 
 <body>
+    
+<nav class="menu">
+    <ul>
+      <li><a class="nav-link" href="#">Search</a></li>
+      <li><a class="nav-link" href="#" onclick="openLogin()">API Key</a></li>
+    </ul>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 16C11.5 16.8284 10.8284 17.5 10 17.5C9.17157 17.5 8.5 16.8284 8.5 16C8.5 15.1716 9.17157 14.5 10 14.5C10.8284 14.5 11.5 15.1716 11.5 16ZM17.5 16C17.5 16.8284 16.8284 17.5 16 17.5C15.1716 17.5 14.5 16.8284 14.5 16C14.5 15.1716 15.1716 14.5 16 14.5C16.8284 14.5 17.5 15.1716 17.5 16ZM22 17.5C22.8284 17.5 23.5 16.8284 23.5 16C23.5 15.1716 22.8284 14.5 22 14.5C21.1716 14.5 20.5 15.1716 20.5 16C20.5 16.8284 21.1716 17.5 22 17.5Z" fill="black" fill-opacity="0.8"/>
+      </svg>
+</nav>
 
-<div class="top">
-    <h1>Search</h1>
-    <button class="button login" onclick="openLogin()">Configure</button>
-</div>
-
-<div class="container">
+<div class="search-container">
     <form class="search-area">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><g id="magnifying-glass--glass-search-magnifying"><path id="Vector" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" d="M6 11.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z"></path><path id="Vector_2" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" d="M13.5 13.5 10 10"></path></g></svg>
 
@@ -238,11 +307,7 @@ div.success {
 
         <!--<button class="button large" id="submit-query" onclick="checkInput()">Search</button>-->
 
-        <select id="options" name="search-options">
-            <option value="everything">All</option>
-            <option value="title-creator-year">Title</option>
-            <option value="all-fields-tags">Authors</option>
-        </select>
+
     </form>
 </div>
 
@@ -351,15 +416,15 @@ div.success {
         let addSelection = document.getElementById('add-selection')
         if (clicked === false) {
             addSelection.style.display = "unset";
-            clickedItem.style.backgroundColor = "var(--figma-color-bg-success-tertiary)";
-            clickedItem.style.color = "var(--figma-color-text-success)";
+            clickedItem.style.backgroundColor = "var(--main-bg-success-tertiary)";
+            clickedItem.style.color = "var(--main-text-success)";
             selectionTitle = title; 
             selectionAuthors = authors;
             clicked = true;
         } else if (clicked === true) {
             addSelection.style.display = "none";
-            clickedItem.style.backgroundColor = "var(--figma-color-bg)";
-            clickedItem.style.color = "var(--figma-color-text)";
+            clickedItem.style.backgroundColor = "var(--main-bg)";
+            clickedItem.style.color = "var(--main-text)";
             clicked = false;
         }
         parent.postMessage({pluginMessage: {selectionTitle, selectionAuthors}}, '*');

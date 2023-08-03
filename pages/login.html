@@ -1,206 +1,380 @@
 <style>
 
-    body {
-        background-color: var(--figma-color-bg);
-        color: var(--figma-color-text);
-        padding: 10px 10px 54px 10px;
-        font-family: sans-serif;
-        display: flex;
-        flex-direction: column;
-        margin: 0 auto;
-        position: relative;
-    }
-    
-    ul { 
-        list-style-type: none;
-        list-style-position: inside;
-        margin: 0;
-        padding: 0;
-    }
-    
-    li {
-        border-top: 1px solid rgb(197, 197, 197);
-        padding: 20px 0 20px 0;
-        color: var(--figma-color-text);
-    }
-    
-    li:hover {
-        background-color: var(--figma-color-bg-hover);
-        cursor: pointer;
-    }
+:root {
+  --main-bg: #ffffff;
+  --secondary-bg: #2C2C2C;
+  --main-text: rgba(0, 0, 0, 0.90);
+  --main-blue: #0D99FF;
+  --light-border: rgba(0, 0, 0, 0.10);
+  
+}
 
-    div.top {
+body {
+    background-color: var(--main-bg);
+    color: var(--main-text);
+    font-family: sans-serif;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    margin: 0 auto;
+    position: relative;
+}
+
+div.container {
+    padding: 10px 10px 54px 10px;
+}
+
+p.home-para {
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: -0.014px;
+}
+
+a.nav-link {
+    color: var(--main-text);
+    text-decoration-line: none;
+}
+
+a.link {
+    color: var(--main-text);
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: -0.084px;
+    margin-top: 20px;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+nav {
+    display: flex;
+    max-width: 100%;
+    height: 40px;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 10px 0;
-    }
+    flex-shrink: 0;  
+    border-bottom: 1px solid var(--light-border);
+    padding: 0 8px 0px 16px;
+}
 
-    h1 {
-        font-size: 24px;
-        margin: 0;
-    }
-    
-    h2 {
-        font-size: 20px;
-        margin: 0px;
-    }
-    
-    form {
-        display: block !important;
-    }
-    
-    div.login {
-        display: flex;
-        flex-direction: column;
-        margin-top: 20px;
-    }
+ul { 
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
 
-    .checkbox-containter {
-        display: flex;
-        flex-direction: row;
-    }
-    
-    input {
-        display: block;
-        width: 100%;
-        height: 44px;
-        padding-left: 10px;
-        margin: 10px 0 20px 0;
-    }
+li {
+    color: var(--main-text);
+    font-family: Inter, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 145.455% */
+    letter-spacing: 0.055px;
+    margin-right: 16px;
+}
 
-    input.checkbox {
-        width: 14px;
-        height: 14px;
-        text-align: left;
-        height: unset;
-        display: unset;
-    }
 
-    label.checkbox-label {
-        width: unset;
-        margin-left: 4px;
-    }
+li:hover {
+    background-color: var(--main-bg-hover);
+    cursor: pointer;
+}
 
-    input.input__field {
-        border: 1px solid rgba(0, 0, 0, .3);
-    }
-    
-    label {
-        font-size: 14px;
-    }
-    
-    button {
-        margin: 10px 0 10px 0;
-        width: 100%;
-    }
+div.top {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+margin: 20px 0 10px 0;
+}
 
-    button:hover {
-        cursor: pointer;
-        opacity: .8;
-    }
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
 
-    button.login {
-        max-width: 80px;
-    }
-    
-    button.large {
-        font-size: 14px;
-        padding: 10px 12px;
-        height: 44px;
-        min-width: 120px;
-        background-color: var(--figma-color-bg-selected-strong);
-        color: var(--figma-color-text-onselected);
-        border: unset;
-    }
-    
-    button.add {
-        margin: 0;
-        display: none;
-        align-self: flex-end;
-        z-index: 1;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        min-height: 60px;
-        background-color: var(--figma-color-bg-selected-strong);
-        color: var(--figma-color-text-onselected);
-        border: 1px solid var(--figma-color-border-selected-strong);
-    }
+h2 {
+    font-size: 20px;
+    margin: 0px;
+}
 
-    button.delete {
-        height: 44px;
-        background-color: var(--figma-color-bg);
-        color: var(--figma-color-text);
-        border: 1px solid var(--figma-color-border-strong);
-    }
+form {
+    display: block !important;
+}
+
+div.login {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    height: 44px;
+    padding-left: 10px;
+    margin: 10px 0 20px 0;
+}
+
+input.input__field {
+    border: 1px solid rgba(0, 0, 0, .3);
+}
+
+label {
+    font-size: 14px;
+}
+
+button {
+    margin: 10px 0 10px 0;
+    width: 100%;
+}
+
+button:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+button.login {
+    max-width: 80px;
+}
+
+button.large {
+    font-size: 14px;
+    padding: 10px 12px;
+    height: 40px;
+    min-width: 120px;
+    background-color: var(--main-blue);
+    color: white;
+    border: unset;
+    border-radius: 6px;
+}
+
+button.add {
+    margin: 0;
+    display: none;
+    align-self: flex-end;
+    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-height: 60px;
+    background-color: var(--main-blue);
+    color: white;
+    border: 1px solid var(--figma-color-border-selected-strong);
+}
+
+button.delete {
+    height: 44px;
+    background-color: var(--main-bg);
+    color: var(--main-text);
+    border: 1px solid var(--figma-color-border-strong);
+}
+
+button.modal-primary {
+    align-self: flex-end;
+    padding: 7px 12px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 6px;
+    background: #0D99FF;
+    color: white;
+    border: none;
+    width: max-content;
+    margin: 8px 8px 0 0;
+    font-size: 11px;
+    font-family: Inter, sans-serif;
+}
+
+div.results-container {
+    display: none;
+    margin: 10px 0 10px 0;
+    position: relative;
+    z-index: 0;
+}
+
+div.results-toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div.selection-stats {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+div.number-selected {
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+div.search-result-section {
+    margin: 20px 0;
+    color: var(--main-text);
+}
+
+div.plugin-message {
+    display: none;
+}
+
+div.success {
+    margin: 0 auto;
+    background-color: var(--main-bg-success-tertiary);
+    color: var(--main-text-success);
+    margin: 20px 0 0 0;
+    padding: 20px;
+    text-align: center;
+}
+
+div.modal-topbar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div.modal-hl {
+    font-family: Inter, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 145.455% */
+    letter-spacing: 0.055px;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.20); /* Black w/ opacity */
+    color: black;
+    /* Modal shadow */
+    box-shadow: 0px 2px 14px 0px rgba(0, 0, 0, 0.15);
+}
+
+/* Modal Content */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 8px 8px 16px 16px;
+    border: 0.5px solid var(--special-modal-stroke, rgba(0, 0, 0, 0.20));
+    width: 80%;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+p.modal-p {
+    display: flex;
+    color: var(--fg-100, rgba(0, 0, 0, 0.80));
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 145.455% */
+    letter-spacing: 0.055px;
+    padding-right: 8px;
+}
+
+/* The Close Button */
+.close {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
     
-    div.results-container {
-        display: none;
-        margin: 10px 0 10px 0;
-        position: relative;
-        z-index: 0;
-    }
-    
-    div.results-toolbar {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-    
-    div.selection-stats {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    
-    div.number-selected {
-        font-size: 12px;
-        margin-right: 10px;
-    }
-    
-    div.search-result-section {
-        margin: 20px 0;
-        color: var(--figma-color-text);
-    }
-    
-    div.plugin-message {
-        display: none;
-    }
-    
-    div.success {
-        margin: 0 auto;
-        background-color: var(--figma-color-bg-success-tertiary);
-        color: var(--figma-color-text-success);
-        margin: 20px 0 0 0;
-        padding: 20px;
-        text-align: center;
-    }
-    
+
 </style>
 
+<nav class="menu">
+    <ul>
+      <li><a class="nav-link" href="#" onclick="closeLogin()">Search</a></li>
+      <li><a class="nav-link" href="#">API Key</a></li>
+      <li><a class="nav-link" href="#" onclick="deleteKeys()">Delete keys</a></li>
+    </ul>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 16C11.5 16.8284 10.8284 17.5 10 17.5C9.17157 17.5 8.5 16.8284 8.5 16C8.5 15.1716 9.17157 14.5 10 14.5C10.8284 14.5 11.5 15.1716 11.5 16ZM17.5 16C17.5 16.8284 16.8284 17.5 16 17.5C15.1716 17.5 14.5 16.8284 14.5 16C14.5 15.1716 15.1716 14.5 16 14.5C16.8284 14.5 17.5 15.1716 17.5 16ZM22 17.5C22.8284 17.5 23.5 16.8284 23.5 16C23.5 15.1716 22.8284 14.5 22 14.5C21.1716 14.5 20.5 15.1716 20.5 16C20.5 16.8284 21.1716 17.5 22 17.5Z" fill="black" fill-opacity="0.8"/>
+      </svg>
+</nav>
+
+<div class="container">
+
 <div class="top">
-    <h1>Login</h1>
-    <button class="button login" onclick="closeLogin()">Done</button>
+    <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="104" height="40" viewBox="0 0 104 40" fill="none">
+            <path d="M20.1947 19.5828C19.6384 18.7297 18.8039 18.025 17.6912 17.4687C16.5786 16.8753 15.3917 16.5786 14.1307 16.5786C12.7585 16.5786 11.5345 16.8382 10.459 17.3574C9.42049 17.8767 8.53037 18.5814 7.78859 19.4715C7.04682 20.3245 6.47195 21.3259 6.06398 22.4757C5.69309 23.6254 5.50765 24.8308 5.50765 26.0918C5.50765 27.3528 5.69309 28.5582 6.06398 29.7079C6.47195 30.8577 7.04682 31.8776 7.78859 32.7677C8.53037 33.6208 9.43903 34.3069 10.5146 34.8261C11.5902 35.3454 12.8141 35.605 14.1864 35.605C15.5216 35.605 16.7269 35.3454 17.8025 34.8261C18.9152 34.3069 19.8238 33.6022 20.5285 32.7121L24.0334 35.8832C22.9207 37.1813 21.5299 38.2012 19.8609 38.943C18.1919 39.6477 16.3004 40 14.1864 40C12.1465 40 10.255 39.6662 8.51182 38.9986C6.80575 38.331 5.32221 37.4038 4.0612 36.217C2.80019 34.993 1.79879 33.528 1.05702 31.822C0.352341 30.1159 0 28.2058 0 26.0918C0 24.0148 0.352341 22.1233 1.05702 20.4172C1.76171 18.7112 2.74455 17.2462 4.00556 16.0223C5.26657 14.7983 6.75012 13.8526 8.45619 13.185C10.1994 12.5174 12.0723 12.1836 14.0751 12.1836C15.9295 12.1836 17.7654 12.5545 19.5828 13.2962C21.4372 14.038 22.9022 15.1136 23.9777 16.5229L20.1947 19.5828Z" fill="black"/>
+            <path d="M32.8312 39.2768H27.6017V12.9068H32.8312V39.2768ZM33.7213 3.3936C33.7213 4.35791 33.369 5.15531 32.6643 5.78581C31.9967 6.41632 31.1807 6.73157 30.2164 6.73157C29.2521 6.73157 28.4362 6.41632 27.7686 5.78581C27.101 5.11822 26.7672 4.32082 26.7672 3.3936C26.7672 2.4293 27.101 1.6319 27.7686 1.00139C28.4362 0.333797 29.2521 0 30.2164 0C31.1807 0 31.9967 0.333797 32.6643 1.00139C33.369 1.6319 33.7213 2.4293 33.7213 3.3936Z" fill="black"/>
+            <path d="M53.1811 17.1905H46.1713V30.9318C46.1713 32.5267 46.468 33.6764 47.0615 34.3811C47.6549 35.0487 48.6006 35.3825 49.8987 35.3825C50.3809 35.3825 50.9001 35.3268 51.4564 35.2156C52.0128 35.1043 52.5135 34.9374 52.9585 34.7149L53.1254 38.9986C52.4949 39.2211 51.7902 39.388 51.0114 39.4993C50.2696 39.6477 49.4907 39.7218 48.6748 39.7218C46.1899 39.7218 44.2798 39.0357 42.9446 37.6634C41.6465 36.2911 40.9975 34.2327 40.9975 31.4882V17.1905H35.9349V12.9068H40.9975V5.34075H46.1713V12.9068H53.1811V17.1905Z" fill="black"/>
+            <path d="M75.3842 23.7552C75.3471 22.7167 75.1617 21.7524 74.8279 20.8623C74.5312 19.9351 74.0676 19.1377 73.4371 18.4701C72.8436 17.8025 72.0833 17.2833 71.1561 16.9124C70.266 16.5044 69.209 16.3004 67.985 16.3004C66.8724 16.3004 65.8154 16.5044 64.814 16.9124C63.8497 17.2833 62.9966 17.8025 62.2549 18.4701C61.5502 19.1377 60.9568 19.9351 60.4746 20.8623C60.0296 21.7524 59.7699 22.7167 59.6958 23.7552H75.3842ZM80.6693 25.8693C80.6693 26.166 80.6693 26.4627 80.6693 26.7594C80.6693 27.0561 80.6508 27.3528 80.6137 27.6495H59.6958C59.7328 28.7622 59.9739 29.8192 60.419 30.8206C60.9011 31.7849 61.5316 32.6379 62.3105 33.3797C63.0894 34.0844 63.9795 34.6407 64.9809 35.0487C66.0193 35.4567 67.1135 35.6606 68.2632 35.6606C70.0435 35.6606 71.5826 35.2712 72.8807 34.4924C74.1788 33.7135 75.1988 32.7677 75.9405 31.6551L79.6123 34.6036C78.2029 36.458 76.534 37.8303 74.6054 38.7204C72.7138 39.5735 70.5998 40 68.2632 40C66.2604 40 64.406 39.6662 62.6999 38.9986C60.9939 38.331 59.5289 37.4038 58.3049 36.217C57.081 34.993 56.1167 33.528 55.412 31.822C54.7073 30.1159 54.355 28.2244 54.355 26.1474C54.355 24.1076 54.6888 22.2346 55.3564 20.5285C56.0611 18.7854 57.0254 17.3018 58.2493 16.0779C59.4732 14.854 60.9197 13.9082 62.5887 13.2406C64.2576 12.5359 66.0564 12.1836 67.985 12.1836C69.9136 12.1836 71.6568 12.4988 73.2145 13.1293C74.8093 13.7599 76.1445 14.6685 77.2201 15.8554C78.3328 17.0422 79.1858 18.4886 79.7792 20.1947C80.3726 21.8637 80.6693 23.7552 80.6693 25.8693Z" fill="black"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M104 14.1578L104 5.84219C104 4.57142 103.228 3.42979 102.052 2.96339L95.1293 0.215978C94.4036 -0.0719926 93.5963 -0.0719931 92.8707 0.215978L85.9476 2.96339C84.7723 3.42979 84 4.57142 84 5.84219V14.1578C84 15.4286 84.7723 16.5702 85.9476 17.0366L92.8707 19.784C93.5963 20.072 94.4036 20.072 95.1293 19.784L102.052 17.0366C103.228 16.5702 104 15.4286 104 14.1578ZM101.692 13.4367L95.1538 10.8419L95.1538 2.72094L101.205 5.12249C101.499 5.23909 101.692 5.5245 101.692 5.84219L101.692 13.4367ZM100.12 15.3081L94.0634 12.9044C94.042 12.8959 94.0209 12.8871 94 12.8779C93.979 12.8871 93.9579 12.8959 93.9366 12.9044L87.8796 15.3081L93.7176 17.6249C93.8991 17.6969 94.1009 17.6969 94.2823 17.6249L100.12 15.3081ZM92.8461 2.72094V10.8419L86.3077 13.4367V5.84219C86.3077 5.5245 86.5007 5.23909 86.7946 5.12249L92.8461 2.72094Z" fill="#007BE5"/>
+        </svg>
+    </div>
 </div>
+
+<p class="home-para">Enter your Zotero user ID and API key to add citations from your personal Zotero library.</p>
+
 
 <div id="login" class="login">
     <label for="User Id" >User ID</label>
-    <input id="uid-field" class="input__field" type="text" placeholder="Enter your user ID">
+    <input id="uid-field" class="input__field" type="text" placeholder="Enter your Zotero user ID">
     <label for="API Key">API Key</label>
-    <input id="apikey-field" class="input__field" type="text" placeholder="Enter your API key">
+    <input id="apikey-field" class="input__field" type="text" placeholder="Enter your Zotero API key">
 
-    <button class="button large" id="submit-cred" onclick="setCredentials()">Login</button>
+    <button class="button large" id="submit-cred" onclick="setCredentials()">Save info</button>
 
-    <div class="checkbox-container">
-        <input class="checkbox" type="checkbox" name="vehicle1" value="Bike">
-        <label class="checkbox-label" for="vehicle1">Remember me</label>
+    <a class="link" href="https://www.zotero.org/settings/keys/new" target="_blank" rel="noopener noreferrer">Need help creating an API key?</a>
+
+</div>
+
+<div id="myModal" class="modal">
+
+    <div class="modal-content">
+        <div class="modal-topbar"><div class="modal-hl">Success</div>
+
+            <span class="close" onclick="closeModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16 15.2931L20.6465 10.6466L21.3536 11.3537L16.7072 16.0002L21.3536 20.6466L20.6465 21.3537L16.0001 16.7073L11.3536 21.3537L10.6465 20.6466L15.2929 16.0002L10.6465 11.3538L11.3536 10.6467L16 15.2931Z" fill="black" fill-opacity="0.8"/>
+                    </svg>
+            </span>
+
+        </div>
+
+        <p id="modal-message" class="modal-p">Your info has been saved. You can now search your Zotero library.</p>
+
+        <button id="continue" class="modal-primary" onclick="closeModal()">Continue</button>
+
     </div>
-    
-    <button class="button delete" onclick="deleteKeys()">Delete keys</button>
 
+</div>
 </div>
 
 <script>
@@ -225,8 +399,37 @@ function closeLogin() {
 }
 
 function deleteKeys() {
-    let deletKeys = true;
-    parent.postMessage({pluginMessage: {deletKeys}}, '*'); 
+    let deleteKeys = true;
+    parent.postMessage({pluginMessage: {deleteKeys}}, '*'); 
+    displayModal();
+    modal.style.display = "block";
+    document.getElementById("modal-message").innerHTML = "Your info has been deleted. You can close the plugin or enter a new Zotero API Key and User ID."
+}
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+function displayModal() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+function closeModal() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
     
 </script>
