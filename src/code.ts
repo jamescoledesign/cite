@@ -50,11 +50,17 @@ figma.ui.onmessage = async (pluginMessage) => {
   if (login) {
     loadPage("login");
     resizeUI();
+    figma.notify(
+      "User not authenticated"
+    );
   }
 
   if (done) {
     loadPage("main");
     resizeUI();
+    figma.notify(
+      "User authenticated"
+    );
   }
 
   if (deleteKeys) {

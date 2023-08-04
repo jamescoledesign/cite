@@ -23,6 +23,33 @@ div.container {
     padding: 10px 10px 54px 10px;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 12px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
 p.home-para {
     font-family: Inter, sans-serif;
     font-size: 14px;
@@ -312,14 +339,82 @@ p.modal-p {
   cursor: pointer;
 }
     
+.navbar {
+  overflow: hidden;
+  background-color: #333; 
+  color: black;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.subnav {
+  float: left;
+  overflow: hidden;
+}
+
+.subnav .subnavbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .subnav:hover .subnavbtn {
+  background-color: red;
+}
+
+.subnav-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background-color: red;
+  width: 100%;
+  z-index: 1;
+}
+
+.subnav-content a {
+  float: left;
+  color: black;
+  text-decoration: none;
+}
+
+.subnav-content a:hover {
+  background-color: #eee;
+  color: black;
+}
+
+.subnav:hover .subnav-content {
+  display: block;
+}
 
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <nav class="menu">
     <ul>
       <li><a class="nav-link" href="#" onclick="closeLogin()">Search</a></li>
-      <li><a class="nav-link" href="#">API Key</a></li>
-      <li><a class="nav-link" href="#" onclick="deleteKeys()">Delete keys</a></li>
+
+        <li class="dropdown">
+        <div onclick="myFunction()" class="dropbtn">API Key</div>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#home">Update keys</a>
+            <a href="#home" onclick="deleteKeys()">Delete keys</adiv>
+        </div>
+        </li>
+
+    <li><a class="nav-link" href="#"></a></li>
     </ul>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 16C11.5 16.8284 10.8284 17.5 10 17.5C9.17157 17.5 8.5 16.8284 8.5 16C8.5 15.1716 9.17157 14.5 10 14.5C10.8284 14.5 11.5 15.1716 11.5 16ZM17.5 16C17.5 16.8284 16.8284 17.5 16 17.5C15.1716 17.5 14.5 16.8284 14.5 16C14.5 15.1716 15.1716 14.5 16 14.5C16.8284 14.5 17.5 15.1716 17.5 16ZM22 17.5C22.8284 17.5 23.5 16.8284 23.5 16C23.5 15.1716 22.8284 14.5 22 14.5C21.1716 14.5 20.5 15.1716 20.5 16C20.5 16.8284 21.1716 17.5 22 17.5Z" fill="black" fill-opacity="0.8"/>
@@ -381,6 +476,26 @@ p.modal-p {
 
 let done = false;
 
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
 // set uid and api key from input fields on submit
 async function setCredentials() {
     let userId = document.getElementById('uid-field').value;
@@ -399,6 +514,7 @@ function closeLogin() {
 }
 
 function deleteKeys() {
+    myFunction();
     let deleteKeys = true;
     parent.postMessage({pluginMessage: {deleteKeys}}, '*'); 
     displayModal();
