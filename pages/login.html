@@ -1,12 +1,13 @@
 <style>
 
 :root {
-  --main-bg: #ffffff;
-  --secondary-bg: #2C2C2C;
-  --main-text: rgba(0, 0, 0, 0.90);
-  --main-blue: #0D99FF;
-  --light-border: rgba(0, 0, 0, 0.10);
-  
+    --main-bg: #ffffff;
+    --secondary-bg: #2C2C2C;
+    --main-text: rgba(0, 0, 0, 0.90);
+    --secondary-text: #b3b3b3;
+    --main-blue: #0D99FF;
+    --light-border: rgba(0, 0, 0, 0.10);
+    --button-hover: #f5f5f5;
 }
 
 body {
@@ -23,32 +24,42 @@ div.container {
     padding: 10px 10px 54px 10px;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+div.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  margin-top: 12px;
+    color: white;
+    display: none;
+    position: absolute;
+    background-color: black;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.20), 0px 2px 7px 0px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    margin-top: 12px;
+}
+
+svg.dropdown-arrow {
+    margin-left: 4px;
 }
 
 .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+    color: white;
+    padding: 8px 16px;
+    margin: 8px 0;
+    text-decoration: none;
+    display: block;
 }
 
-.dropdown a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: var(--main-blue);
+}
 
-.show {display: block;}
+.show {
+    display: block;
+}
 
 p.home-para {
     font-family: Inter, sans-serif;
@@ -59,25 +70,16 @@ p.home-para {
     letter-spacing: -0.014px;
 }
 
-a.nav-link {
-    color: var(--main-text);
-    text-decoration-line: none;
-}
-
 a.link {
     color: var(--main-text);
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 24px; /* 171.429% */
     letter-spacing: -0.084px;
     margin-top: 20px;
-}
-
-a:hover {
-    opacity: 0.7;
 }
 
 nav {
@@ -88,7 +90,25 @@ nav {
     align-items: center;
     flex-shrink: 0;  
     border-bottom: 1px solid var(--light-border);
-    padding: 0 8px 0px 16px;
+    padding: 0 4px 0px 16px;
+}
+
+svg.meatballs-menu {
+    background-color: white;
+    border-radius: 2px;
+}
+
+svg.meatballs-menu:hover {
+    background-color: var(--button-hover);
+}
+
+svg.clicked {
+    background-color: var(--main-blue);
+    color: white;
+}
+
+svg.clicked:hover {
+    background-color: var(--main-blue);
 }
 
 ul { 
@@ -110,18 +130,26 @@ li {
     margin-right: 16px;
 }
 
+li.nav-link {
+    color: var(--secondary-text);
+    text-decoration-line: none;
+}
 
-li:hover {
-    background-color: var(--main-bg-hover);
+li.nav-link:hover {
+    color: var(--main-text);
     cursor: pointer;
 }
 
+.selected {
+    color: var(--main-text);
+}
+
 div.top {
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-margin: 20px 0 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0 10px 0;
 }
 
 h1 {
@@ -338,65 +366,6 @@ p.modal-p {
   text-decoration: none;
   cursor: pointer;
 }
-    
-.navbar {
-  overflow: hidden;
-  background-color: #333; 
-  color: black;
-}
-
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.subnav {
-  float: left;
-  overflow: hidden;
-}
-
-.subnav .subnavbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: black;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
-
-.navbar a:hover, .subnav:hover .subnavbtn {
-  background-color: red;
-}
-
-.subnav-content {
-  display: none;
-  position: absolute;
-  left: 0;
-  background-color: red;
-  width: 100%;
-  z-index: 1;
-}
-
-.subnav-content a {
-  float: left;
-  color: black;
-  text-decoration: none;
-}
-
-.subnav-content a:hover {
-  background-color: #eee;
-  color: black;
-}
-
-.subnav:hover .subnav-content {
-  display: block;
-}
 
 </style>
 
@@ -404,20 +373,21 @@ p.modal-p {
 
 <nav class="menu">
     <ul>
-      <li><a class="nav-link" href="#" onclick="closeLogin()">Search</a></li>
-
-        <li class="dropdown">
-        <div onclick="myFunction()" class="dropbtn">API Key</div>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="#home">Update keys</a>
-            <a href="#home" onclick="deleteKeys()">Delete keys</adiv>
+    <li class="nav-link">
+        <div id="dropdownText" class="dropdown" onclick="toggleDropdown()">API Key
+            <svg id="arrow-icon" class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="8" height="5" viewBox="0 0 8 5" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M3.6459 4.35301L0 0.707107L0.707107 0L3.99946 3.29235L7.29181 0L7.99892 0.707107L4.35301 4.35301L3.99946 4.70656L3.6459 4.35301Z" fill="currentColor" fill-opacity="1"/>
+                </svg>
         </div>
-        </li>
-
-    <li><a class="nav-link" href="#"></a></li>
+        <div id="api-drop-content" class="dropdown-content">
+            <a href="#home">Update key</a>
+            <a href="#home" onclick="deleteKeys()">Delete key</a>
+        </div>
+    </li>
+    <li class="nav-link" onclick="closeLogin()">Search</li>
     </ul>
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 16C11.5 16.8284 10.8284 17.5 10 17.5C9.17157 17.5 8.5 16.8284 8.5 16C8.5 15.1716 9.17157 14.5 10 14.5C10.8284 14.5 11.5 15.1716 11.5 16ZM17.5 16C17.5 16.8284 16.8284 17.5 16 17.5C15.1716 17.5 14.5 16.8284 14.5 16C14.5 15.1716 15.1716 14.5 16 14.5C16.8284 14.5 17.5 15.1716 17.5 16ZM22 17.5C22.8284 17.5 23.5 16.8284 23.5 16C23.5 15.1716 22.8284 14.5 22 14.5C21.1716 14.5 20.5 15.1716 20.5 16C20.5 16.8284 21.1716 17.5 22 17.5Z" fill="black" fill-opacity="0.8"/>
+    <svg id="meatballs" onclick="toggleMeatballs()" class="meatballs-menu" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 16C11.5 16.8284 10.8284 17.5 10 17.5C9.17157 17.5 8.5 16.8284 8.5 16C8.5 15.1716 9.17157 14.5 10 14.5C10.8284 14.5 11.5 15.1716 11.5 16ZM17.5 16C17.5 16.8284 16.8284 17.5 16 17.5C15.1716 17.5 14.5 16.8284 14.5 16C14.5 15.1716 15.1716 14.5 16 14.5C16.8284 14.5 17.5 15.1716 17.5 16ZM22 17.5C22.8284 17.5 23.5 16.8284 23.5 16C23.5 15.1716 22.8284 14.5 22 14.5C21.1716 14.5 20.5 15.1716 20.5 16C20.5 16.8284 21.1716 17.5 22 17.5Z" fill="currentColor"/>
       </svg>
 </nav>
 
@@ -435,7 +405,7 @@ p.modal-p {
     </div>
 </div>
 
-<p class="home-para">Enter your Zotero user ID and API key to add citations from your personal Zotero library.</p>
+<p class="home-para">Enter your Zotero user ID and API key to add citations from your personal library.</p>
 
 
 <div id="login" class="login">
@@ -478,23 +448,29 @@ let done = false;
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+function toggleDropdown() {
+    document.getElementById("api-drop-content").classList.toggle("show");
+    document.getElementById("dropdownText").classList.toggle("selected");
+}
+
+function toggleMeatballs() {
+    document.getElementById("meatballs").classList.toggle("clicked");
 }
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
+window.addEventListener("click", function(event) {
+      if (!event.target.matches('.dropdown')) {
+    let dropdowns = document.getElementsByClassName("dropdown-content");
+    let i;
     for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
+      let openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
+        document.getElementById("dropdownText").classList.toggle("selected");
       }
     }
   }
-}
+});
 
 // set uid and api key from input fields on submit
 async function setCredentials() {
@@ -514,7 +490,7 @@ function closeLogin() {
 }
 
 function deleteKeys() {
-    myFunction();
+    toggleDropdown();
     let deleteKeys = true;
     parent.postMessage({pluginMessage: {deleteKeys}}, '*'); 
     displayModal();
