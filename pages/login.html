@@ -10,7 +10,7 @@
     --button-hover: #f5f5f5;
 }
 
-.div:focus {
+.div:focus-visible {
     outline: 2px solid var(--main-blue);
     outline-offset: 2px;
 }
@@ -87,7 +87,7 @@ p.home-para {
     margin: 16px 0 0 0;
 }
 
-a:focus {
+a:focus-visible {
     outline: 2px solid var(--main-blue);
     outline-offset: 2px;
 }
@@ -151,7 +151,7 @@ li {
     margin-right: 16px;
 }
 
-li:focus {
+li:focus-visible {
     outline: 2px solid var(--main-blue);
     outline-offset: 2px;
 }
@@ -218,7 +218,7 @@ input.input__field {
     border: 1px solid rgba(0, 0, 0, .3);
 }
 
-input:focus {
+input:focus-visible {
     outline: 2px solid var(--main-blue);
     outline-offset: 2px;
 }
@@ -236,7 +236,7 @@ button {
     width: 100%;
 }
 
-button:focus {
+button:focus-visible {
     outline: 2px solid var(--main-blue);
     outline-offset: 2px;
 }
@@ -409,7 +409,7 @@ p.modal-p {
 }
 
 .close:hover,
-.close:focus {
+.close:focus-visible {
   color: #000;
   text-decoration: none;
   cursor: pointer;
@@ -420,11 +420,16 @@ div.pw-field {
     flex-direction: row;
 }
 
-.eye-visible {
-    width: 22px;
-    margin-left: -30px; 
-    padding: 0 0 7px 0;
+svg.eye {
+    width: 22px; 
+    margin: 18px 0 18px -30px;
     cursor: pointer;
+    opacity: 0.5;
+    height: max-content;
+}
+
+svg.eye:hover {
+    opacity: 1;
 }
 
 </style>
@@ -482,9 +487,9 @@ div.pw-field {
 
     <div class="pw-field">
         <input id="apikey-field" class="input__field" type="password" placeholder="Enter your Zotero API key">
-        <svg class="eye-visible" onclick="showPw()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-            <path d="M26.8023 14.4217C27.0869 14.7766 27.2446 15.2377 27.2446 15.7143C27.2446 16.1926 27.0869 16.652 26.8023 17.0069C25.0023 19.1857 20.9052 23.4286 16.1223 23.4286C11.3395 23.4286 7.24233 19.1857 5.44233 17.0069C5.15293 16.6384 4.99702 16.1828 5.00004 15.7143C5.00004 15.2377 5.15776 14.7766 5.44233 14.4217C7.24233 12.2429 11.3395 8 16.1223 8C20.9052 8 25.0023 12.2429 26.8023 14.4217Z" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16.1224 19.1428C17.0317 19.1428 17.9038 18.7816 18.5468 18.1386C19.1898 17.4957 19.551 16.6236 19.551 15.7143C19.551 14.805 19.1898 13.9329 18.5468 13.2899C17.9038 12.6469 17.0317 12.2857 16.1224 12.2857C15.2131 12.2857 14.341 12.6469 13.6981 13.2899C13.0551 13.9329 12.6938 14.805 12.6938 15.7143C12.6938 16.6236 13.0551 17.4957 13.6981 18.1386C14.341 18.7816 15.2131 19.1428 16.1224 19.1428Z" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg id="pwicon" class="eye" onclick="showPw()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+            <path d="M10.3657 10.3554C12.0646 9.25145 14.036 8.42859 16.1428 8.42859C20.9257 8.42859 25.0228 12.6714 26.8228 14.8503C27.1074 15.2052 27.2651 15.6663 27.2651 16.1429C27.2651 16.6212 27.1074 17.0806 26.8228 17.4354C25.8303 18.6354 24.14 20.4646 22.0228 21.8634M18.7143 23.4629C17.888 23.7132 17.0274 23.8572 16.1428 23.8572C11.36 23.8572 7.26284 19.6143 5.46284 17.4354C5.17344 17.067 5.01753 16.6114 5.02055 16.1429C5.02055 15.6663 5.17827 15.2052 5.46284 14.8503C6.03369 14.1612 6.83427 13.2629 7.81484 12.3577" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5667 18.5668C19.1913 17.9202 19.5369 17.0541 19.5291 16.1552C19.5213 15.2562 19.1607 14.3963 18.525 13.7606C17.8893 13.1249 17.0294 12.7644 16.1304 12.7565C15.2315 12.7487 14.3654 13.0943 13.7188 13.7188" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M27.2857 27.2857L5 5" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
     </div>
 
@@ -523,12 +528,30 @@ let show = false;
 let modal = document.getElementById("myModal");
 let btn = document.getElementById("myBtn");
 let span = document.getElementsByClassName("close")[0];
+let visible = true;
+
+function changeIcon() {
+    let icon = document.getElementById("pwicon"); 
+    if (visible === false) {
+        visible = true;
+        icon.innerHTML = `<path d="M10.3657 10.3554C12.0646 9.25145 14.036 8.42859 16.1428 8.42859C20.9257 8.42859 25.0228 12.6714 26.8228 14.8503C27.1074 15.2052 27.2651 15.6663 27.2651 16.1429C27.2651 16.6212 27.1074 17.0806 26.8228 17.4354C25.8303 18.6354 24.14 20.4646 22.0228 21.8634M18.7143 23.4629C17.888 23.7132 17.0274 23.8572 16.1428 23.8572C11.36 23.8572 7.26284 19.6143 5.46284 17.4354C5.17344 17.067 5.01753 16.6114 5.02055 16.1429C5.02055 15.6663 5.17827 15.2052 5.46284 14.8503C6.03369 14.1612 6.83427 13.2629 7.81484 12.3577" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5667 18.5668C19.1913 17.9202 19.5369 17.0541 19.5291 16.1552C19.5213 15.2562 19.1607 14.3963 18.525 13.7606C17.8893 13.1249 17.0294 12.7644 16.1304 12.7565C15.2315 12.7487 14.3654 13.0943 13.7188 13.7188" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M27.2857 27.2857L5 5" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>`;
+    } else {
+        visible = false;
+        icon.innerHTML = `<path d="M26.8023 14.4217C27.0869 14.7766 27.2446 15.2377 27.2446 15.7143C27.2446 16.1926 27.0869 16.652 26.8023 17.0069C25.0023 19.1857 20.9052 23.4286 16.1223 23.4286C11.3395 23.4286 7.24233 19.1857 5.44233 17.0069C5.15293 16.6384 4.99702 16.1828 5.00004 15.7143C5.00004 15.2377 5.15776 14.7766 5.44233 14.4217C7.24233 12.2429 11.3395 8 16.1223 8C20.9052 8 25.0023 12.2429 26.8023 14.4217Z" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16.1224 19.1428C17.0317 19.1428 17.9038 18.7816 18.5468 18.1386C19.1898 17.4957 19.551 16.6236 19.551 15.7143C19.551 14.805 19.1898 13.9329 18.5468 13.2899C17.9038 12.6469 17.0317 12.2857 16.1224 12.2857C15.2131 12.2857 14.341 12.6469 13.6981 13.2899C13.0551 13.9329 12.6938 14.805 12.6938 15.7143C12.6938 16.6236 13.0551 17.4957 13.6981 18.1386C14.341 18.7816 15.2131 19.1428 16.1224 19.1428Z" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
+    console.log(visible);
+}
 
 function showPw() {
   var x = document.getElementById("apikey-field");
+  changeIcon();
   if (x.type === "password") {
+    
     x.type = "text";
   } else {
+    
     x.type = "password";
   }
 }
@@ -564,7 +587,6 @@ window.addEventListener("click", function(event) {
         let openDropdown = dropdowns[i];
         if (openDropdown.classList.contains('show')) {
             openDropdown.classList.remove('show');
-            console.log(openDropdown.className);
         }
     }
   }
