@@ -472,6 +472,7 @@ p.modal-p {
 <script>
 
 let done = false;
+let show = false;
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
@@ -480,7 +481,16 @@ function toggleDropdown() {
 }
 
 function toggleMetaballDropdown() {
-    document.getElementById("meatball-drop-content").classList.toggle("show");
+    let meatballMenu = document.getElementById("meatball-drop-content");
+    if (show === false) {
+        show = true;
+        meatballMenu.style.display = "block";
+        
+    } else {
+        meatballMenu.style.display = "none";
+        show = false;
+    }
+    
 }
 
 function toggleMeatballs() {
