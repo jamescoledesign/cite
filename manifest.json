@@ -11,7 +11,8 @@
   ],
   "networkAccess": {
     "allowedDomains": [
-      "https://api.zotero.org"
+      "https://api.zotero.org",
+      "https://cdnjs.cloudflare.com"
     ],
     "reasoning": "This plugin queries api.zotero.org to get saved publications from a user's Zotero library."
   },

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 <style>
 
 :root {
@@ -390,6 +391,18 @@ p.modal-p {
   cursor: pointer;
 }
 
+div.pw-field {
+    display: flex;
+    flex-direction: row;
+}
+
+.far.fa-eye {
+    margin-left: -30px; 
+    padding: 22px 0 0 0;
+    cursor: pointer;
+}
+
+
 </style>
 
 <nav class="menu">
@@ -439,7 +452,11 @@ p.modal-p {
     <label for="User Id" >User ID</label>
     <input id="uid-field" class="input__field" type="text" placeholder="Enter your Zotero user ID">
     <label for="API Key">API Key</label>
-    <input id="apikey-field" class="input__field" type="text" placeholder="Enter your Zotero API key">
+
+    <div class="pw-field">
+        <input id="apikey-field" class="input__field" type="password" placeholder="Enter your Zotero API key">
+        <i class="far fa-eye" id="togglePassword" onclick="showPw()"></i>
+    </div>
 
     <button class="button large" id="submit-cred" onclick="setCredentials()">Save info</button>
 
@@ -473,9 +490,20 @@ p.modal-p {
 
 let done = false;
 let show = false;
+let modal = document.getElementById("myModal");
+let btn = document.getElementById("myBtn");
+let span = document.getElementsByClassName("close")[0];
 
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
+function showPw() {
+  var x = document.getElementById("apikey-field");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+// Toggle dropdown content
 function toggleDropdown() {
     document.getElementById("api-drop-content").classList.toggle("show");
 }
@@ -485,12 +513,10 @@ function toggleMetaballDropdown() {
     if (show === false) {
         show = true;
         meatballMenu.style.display = "block";
-        
     } else {
         meatballMenu.style.display = "none";
         show = false;
     }
-    
 }
 
 function toggleMeatballs() {
@@ -502,18 +528,19 @@ function toggleMeatballs() {
 // Close the dropdown if the user clicks outside of it
 window.addEventListener("click", function(event) {
       if (!event.target.matches('.dropdown')) {
-    let dropdowns = document.getElementsByClassName("dropdown-content");
-    let i;
-    for (i = 0; i < dropdowns.length; i++) {
-      let openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+        let dropdowns = document.getElementsByClassName("dropdown-content");
+        let i;
+        for (i = 0; i < dropdowns.length; i++) {
+        let openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+            console.log(openDropdown.className);
+        }
     }
   }
 });
 
-// set uid and api key from input fields on submit
+// Set uid and api key from input fields on submit
 async function setCredentials() {
     let userId = document.getElementById('uid-field').value;
     let apiKey = document.getElementById('apikey-field').value;
@@ -539,21 +566,12 @@ function deleteKeys() {
     document.getElementById("modal-message").innerHTML = "Your info has been deleted. You can close the plugin or enter a new Zotero API Key and User ID."
 }
 
-// Get the modal
-var modal = document.getElementById("myModal");
+// Modal functinos
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
 function displayModal() {
   modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
 function closeModal() {
   modal.style.display = "none";
 }
@@ -561,7 +579,7 @@ function closeModal() {
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+    closeModal();
   }
 }
     
