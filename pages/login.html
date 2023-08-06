@@ -396,11 +396,13 @@ div.pw-field {
     flex-direction: row;
 }
 
-.far.fa-eye {
+.eye-visible {
     margin-left: -30px; 
-    padding: 22px 0 0 0;
+    padding: 15px 0 0 0;
     cursor: pointer;
 }
+
+
 
 
 </style>
@@ -455,7 +457,10 @@ div.pw-field {
 
     <div class="pw-field">
         <input id="apikey-field" class="input__field" type="password" placeholder="Enter your Zotero API key">
-        <i class="far fa-eye" id="togglePassword" onclick="showPw()"></i>
+        <svg class="eye-visible" onclick="showPw()" xmlns="http://www.w3.org/2000/svg" width="24px" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M26.8023 14.4217C27.0869 14.7766 27.2446 15.2377 27.2446 15.7143C27.2446 16.1926 27.0869 16.652 26.8023 17.0069C25.0023 19.1857 20.9052 23.4286 16.1223 23.4286C11.3395 23.4286 7.24233 19.1857 5.44233 17.0069C5.15293 16.6384 4.99702 16.1828 5.00004 15.7143C5.00004 15.2377 5.15776 14.7766 5.44233 14.4217C7.24233 12.2429 11.3395 8 16.1223 8C20.9052 8 25.0023 12.2429 26.8023 14.4217Z" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16.1224 19.1428C17.0317 19.1428 17.9038 18.7816 18.5468 18.1386C19.1898 17.4957 19.551 16.6236 19.551 15.7143C19.551 14.805 19.1898 13.9329 18.5468 13.2899C17.9038 12.6469 17.0317 12.2857 16.1224 12.2857C15.2131 12.2857 14.341 12.6469 13.6981 13.2899C13.0551 13.9329 12.6938 14.805 12.6938 15.7143C12.6938 16.6236 13.0551 17.4957 13.6981 18.1386C14.341 18.7816 15.2131 19.1428 16.1224 19.1428Z" stroke="black" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
     </div>
 
     <button class="button large" id="submit-cred" onclick="setCredentials()">Save info</button>
