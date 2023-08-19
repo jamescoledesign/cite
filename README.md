@@ -1,6 +1,5 @@
 # Cite
 ![Cite logo](./src/assets/cite-logo.svg)
-<img src="./src/assets/cite-logo.svg">
 
 ## About
 
