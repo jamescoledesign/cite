@@ -1,4 +1,4 @@
-![Cite logo](./src/assets/cite-logo.svg)
+# Cite
 
 ## About
 
