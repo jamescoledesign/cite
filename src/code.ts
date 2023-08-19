@@ -1,107 +1,75 @@
-// import './style.css'; // not working currently, might need to generate jsx
-import { authenticate } from './modules/authenticate';
-import { searchZotero, clearEverything } from './modules/search';
-import { submitChoices } from './modules/submit'
-import { loadPage } from './modules/nav';
+import { submitChoices } from './submit'
+let arr: any[] = [];
+// check that keys are stored: this is working
+export const authenticate = new Promise((resolve, reject) => {
+  async function getCreds() {
+    let storedId = await figma.clientStorage.getAsync('userId');
+    let storedKey = await figma.clientStorage.getAsync('apiKey');
+    if (storedId && storedKey) {
+      console.log("UID is " + storedId);
+      console.log("API Key is " + storedKey);
+      resolve("User authenticated");
+    } else {
+      reject("User not authenticated");
+    }
+  }
+  getCreds();
+});
 
-function resizeUI() {
-  figma.ui.resize(360,540);
-}
+figma.showUI(__html__, { themeColors: false, height: 568, width: 320 });
 
-// load plugin UI
-
-authenticate
-  .then(() => {
-    loadPage("main");
-    resizeUI();
-    })
-  .catch((error) => {
-    loadPage("login");
-    resizeUI();
-    console.log(error);
-  });
-
-// receive pluginMessage values
 figma.ui.onmessage = async (pluginMessage) => {
 
-  // set uid and api key when submitted
-  let setUid = pluginMessage.userId;
-  let setApiKey = pluginMessage.apiKey;
-
-  let search = pluginMessage.search;
-  let searchTerm = pluginMessage.keyword; // query
   let selectionTitle = pluginMessage.selectionTitle;
   let selectionAuthors = pluginMessage.selectionAuthors;
-
-  let submit = pluginMessage.submit;
-  let clear = pluginMessage.clear;
-
-  let login = pluginMessage.login;
-  let done = pluginMessage.done;
-  let deleteKeys = pluginMessage.deleteKeys;
 
   // load fonts
   await figma.loadFontAsync({ family: "Inter", style: "Regular" });
   await figma.loadFontAsync({ family: "Inter", style: "Medium" });
   await figma.loadFontAsync({ family: "Inter", style: "Bold" });
 
-  // change all of these to switch statements 
-
-  if (login) {
-    loadPage("login");
-    resizeUI();
-    figma.notify(
-      "User not authenticated"
-    );
+  if (pluginMessage.type === "store-keys") {
+    figma.clientStorage.setAsync('userId', pluginMessage.userId); 
+    figma.clientStorage.setAsync('apiKey', pluginMessage.apiKey); 
+    console.log("Set API key to " + pluginMessage.apiKey);
+    // console.log(await figma.clientStorage.keysAsync()); // gets all keys
   }
 
-  if (done) {
-    loadPage("main");
-    resizeUI();
-    figma.notify(
-      "User authenticated"
-    );
-  }
-
-  if (deleteKeys) {
+  if (pluginMessage.type === "delete-keys") {
     figma.clientStorage.deleteAsync('userId');
     figma.clientStorage.deleteAsync('apiKey');
-    console.log(figma.clientStorage.keysAsync());
-    // loadPage("login");
-    resizeUI();
+    console.log("Deleted the keys");
+    // console.log(await figma.clientStorage.keysAsync()); // gets all keys
   }
 
-  // set user id
-
-  if (setUid) {
-    figma.clientStorage.setAsync('userId', setUid); 
-    console.log("Set UID to " + setUid)
-  }
-
-  // set API key
-  if (setApiKey) {
-    figma.clientStorage.setAsync('apiKey', setApiKey); 
-    console.log("Set API key to " + setApiKey)
-    console.log(await figma.clientStorage.keysAsync()); // gets all keys
-  }
-
-  // handle search
-  if (search) {
-    searchZotero(searchTerm);
-  }
-
-  // handle click selection
-  if (selectionTitle) {
-  console.log(selectionTitle, selectionAuthors);
-  }
-
-  // handle submit
-  if (submit) {
+  if (pluginMessage.type === "add-items") {
     submitChoices(1, selectionTitle, selectionAuthors);
   }
 
-  // handle reset
-  if (clear) {
-    clearEverything(clear);
+  if (pluginMessage.type === "close-plugin") {
+    figma.closePlugin();
   }
-}
+
+  if (pluginMessage.type === "search-terms") {
+    let userId = await figma.clientStorage.getAsync('userId');
+    let apiKey = await figma.clientStorage.getAsync('apiKey');
+    const response = await fetch("https://api.zotero.org/users/" + userId + "/items/?q=" + pluginMessage.query + "&key=" + apiKey);
+
+    const results = await response.json();
+
+        // create HTML elements for each search result
+        results.forEach((element: any) => {
+          let title = element.data.title;
+          let creators = element.data.creators;
+  
+          const work = {
+          title: title,
+          authors: creators
+          }
+          arr.push(work); // this is working
+      });
+      figma.ui.postMessage(arr); // send arr to Figma ---- this is working, need to catch arr
+      // console.log(arr);   
+  }
+
+};

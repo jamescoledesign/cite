@@ -19,3 +19,8 @@ https://nodejs.org/en/download/
 
 ### Run build and watch 
 "npm run build -- --watch"
+
+### Acknowledgements
+This plugin uses the [webpack-react](https://github.com/figma/plugin-samples/tree/master/webpack-react) plugin sample from Figma as a base. 
+
+Icons used in the plugin are mostly from [Streamline](https://www.figma.com/community/plugin/852192486284901337/Streamline-Icons%2C-Illustrations%2C-Elements%2C-Emoji).

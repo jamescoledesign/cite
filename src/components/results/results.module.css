@@ -1,0 +1,37 @@
+.resultsList { 
+    margin: 0;
+    padding: 0;
+}
+
+.resultsContainer {
+    display: none;
+    padding: 16px;
+    
+}
+
+.resultItem {
+    border-radius: 6px;
+    border-bottom: 1px solid var(--main-bg-hover);
+    padding: 16px;
+}
+
+.resultItem:hover {
+    background-color: var(--main-bg-hover);
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.title {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    color: var(--main-text);
+}
+
+.author {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--main-text);
+    padding-top: 10px;
+    opacity: 0.7;
+}

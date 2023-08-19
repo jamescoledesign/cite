@@ -1,0 +1,134 @@
+:root {
+  /* Currently disabled, Figma theme tokens from https://www.figma.com/plugin-docs/css-variables/ */
+  --color-bg: var(--figma-color-bg);
+  --color-bg-hover: var(--figma-color-bg-hover);
+  --color-bg-active: var(--figma-color-bg-pressed);
+  --color-border: var(--figma-color-border);
+  --color-border-focus: var(--figma-color-border-selected);
+  --color-icon: var(--figma-color-icon);
+  --color-text: var(--figma-color-text);
+  --color-bg-brand: var(--figma-color-bg-brand);
+  --color-bg-brand-hover: var(--figma-color-bg-brand-hover);
+  --color-bg-brand-active: var(--figma-color-bg-brand-pressed);
+  --color-border-brand: var(--figma-color-border-brand);
+  --color-border-brand-focus: var(--figma-color-border-selected-strong);
+  --color-text-brand: var(--figma-color-text-onbrand);
+
+  /* Custom variables */
+  --main-bg: #ffffff;
+  --secondary-bg: #2C2C2C;
+  --main-bg-hover: #f5f5f5;
+  --main-text: rgba(0, 0, 0, 0.90);
+  --secondary-text: #b3b3b3;
+  --main-blue: #0D99FF;
+  --main-blue-hover: #007be5;
+  --light-border: rgba(0, 0, 0, 0.10);
+  --button-hover: #f5f5f5;
+  --focus: #0d99ff;
+
+}
+
+html,
+body,
+main {
+  margin: 0 auto;
+}
+
+body,
+input,
+button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+}
+
+:focus-visible {
+  outline-color: var(--color-border-focus);
+}
+
+button {
+  border-radius: 0.25rem;
+  border: none;
+  background: var(--color-bg);
+  background-color: var(--main-blue);
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+button:hover {
+  background-color: var(--main-blue-hover);
+}
+
+button:active {
+  background-color: var(--color-bg);
+}
+
+button.brand {
+  --color-bg: var(--color-bg-brand);
+  --color-text: var(--color-text-brand);
+  --color-bg-hover: var(--color-bg-brand-hover);
+  --color-bg-active: var(--color-bg);
+  --color-border: transparent;
+  --color-border-focus: var(--color-border-brand-focus);
+}
+
+.primary {
+  margin-top: 16px;
+}
+
+.secondary {
+  border: 1px solid var(--secondary-bg);
+  background: var(--color-bg);
+  margin-top: 16px;
+  color: var(--main-text);
+}
+
+.secondary:hover {
+  background: var(--button-hover);
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+input {
+  background: 1px solid var(--main-bg);
+  border: 1px solid var(--light-border);
+  color: 1px solid var(--main-text);
+  font-size: 0.9rem;
+  display: block;
+  width: 100%;
+  height: 44px;
+  padding-left: 10px;
+  margin: 8px 0 16px 0;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 16px;
+  text-align: left;
+}
+
+a:hover {
+  opacity: .8;
+  text-decoration: underline;
+  cursor: default;
+}
+
+li:hover {
+  cursor: default;
+}

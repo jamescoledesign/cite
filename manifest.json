@@ -3,6 +3,7 @@
   "id": "1259416813958499299",
   "api": "1.0.0",
   "main": "dist/code.js",
+  "ui": "dist/ui.html",
   "capabilities": [],
   "enableProposedApi": false,
   "editorType": [
@@ -15,9 +16,5 @@
       "https://cdnjs.cloudflare.com"
     ],
     "reasoning": "This plugin queries api.zotero.org to get saved publications from a user's Zotero library."
-  },
-  "ui": {
-    "main": "pages/main.html",
-    "login": "pages/login.html"
   }
 }

@@ -5,10 +5,11 @@ export async function submitChoices(length: number, titleStr: string, authorArr:
 
         console.log("submitted");
         
-        let frame = figma.createFrame();
+        const nodes:SceneNode[] = [];
         const titleText = figma.createText();
         const authorText = figma.createText();
 
+        let frame = figma.createFrame();
         let title = titleStr; // writes to figma
         let authors = authorArr.toString(); // writes to figma
 
@@ -53,5 +54,8 @@ export async function submitChoices(length: number, titleStr: string, authorArr:
             type: 'SOLID', 
             color: { r: 0, g: 0, b: 0 }
         }];
+
+        nodes.push(frame);
+        figma.viewport.scrollAndZoomIntoView(nodes);
     }
 }

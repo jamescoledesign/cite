@@ -1,0 +1,47 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.pwField {
+    display: flex;
+    flex-direction: row;
+}
+
+.eye {
+    width: 22px; 
+    margin: 18px 0 18px -30px;
+    opacity: 0.5;
+    height: max-content;
+}
+
+.eye:hover {
+    opacity: 1;
+}
+
+label {
+    font-size: 11px;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    line-height: 16px;
+    letter-spacing: 0.055px;
+}
+
+.helpLink {
+    color: var(--main-text);
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: -0.084px;
+    margin-top: 20px;
+    opacity: 0.7;
+}
+
+.helpLink:hover {
+    opacity: 1 !important;
+    cursor: pointer;
+}

@@ -1,0 +1,22 @@
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0 16px 0;
+    background-color: #0d9aff22;
+}
+
+.logo {
+    width: 80px;
+}
+
+.heroText {
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: -0.014px;
+    margin: 16px 0 0 0;
+}
