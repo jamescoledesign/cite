@@ -1,36 +1,22 @@
 import * as React from "react";
-import { useState } from "react";
 import * as ReactDOM from "react-dom/client";
+import { MemoryRouter as Router , Routes, Route } from "react-router-dom";
 import "./ui.css";
-
-import { Nav, activeLink } from "../src/components/nav/Nav";
+import { Layout } from "./pages/Layout";
 import { APIKeyPage } from "./pages/APIKeyPage";
 import { SearchPage } from "./pages/SearchPage";
 
 function App() {
-
-  const pages = {
-    page1: <APIKeyPage />,
-    page2: <SearchPage />
-  }
-
-  const [pageContent, setPageContent] = useState(pages.page2);
-
-  function checkPage() {
-    if (activeLink === "li1") {
-      setPageContent(pages.page1);
-    } else if (activeLink === "li2") {
-      setPageContent(pages.page2);
-    }
-  }
-
   return (
-    <main>
-      <header>
-        <Nav onClick={checkPage} />
-      </header>
-      {pageContent}
-    </main>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<APIKeyPage />} />
+          <Route path="search" element={<SearchPage />} />
+          <Route path="*" element={<p>Page does not exist</p>} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

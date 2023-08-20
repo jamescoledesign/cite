@@ -125,7 +125,6 @@ section {
 
 a:hover {
   opacity: .8;
-  text-decoration: underline;
   cursor: default;
 }
 

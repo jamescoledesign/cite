@@ -73,6 +73,16 @@ figma.ui.onmessage = async (pluginMessage) => {
 
   let selectionTitle = pluginMessage.selectionTitle;
   let selectionAuthors = pluginMessage.selectionAuthors;
+  let userId = await figma.clientStorage.getAsync('userId');
+  let apiKey = await figma.clientStorage.getAsync('apiKey');
+
+  if (pluginMessage.type === "check-keys") {
+    if(userId && apiKey) {
+      figma.ui.postMessage("Keys found");
+    } else {
+      figma.ui.postMessage("No keys found");
+    }
+  }
 
   if (pluginMessage.type === "store-keys") {
     figma.clientStorage.setAsync('userId', pluginMessage.userId); 
@@ -95,12 +105,8 @@ figma.ui.onmessage = async (pluginMessage) => {
   if (pluginMessage.type === "close-plugin") {
     figma.closePlugin();
   }
-
   
   if (pluginMessage.type === "search-terms") {
-
-    let userId = await figma.clientStorage.getAsync('userId');
-    let apiKey = await figma.clientStorage.getAsync('apiKey');
 
       if (userId && apiKey) {
         console.log(`Keys found. UID is ${userId} and API Key is ${apiKey}.`);

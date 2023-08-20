@@ -15,7 +15,6 @@ export function Login() {
   function handleSubmit(e) {
 
     // Do not submit if there's no form data
-
     // Prevent the browser from reloading the page
     e.preventDefault();
 
@@ -58,11 +57,8 @@ export function Login() {
     );
     deletedKeysModal();
   }
-  
-// check cred on load, if no cred, fine
 
 useEffect(() => {
-  
   
 }, []);
 

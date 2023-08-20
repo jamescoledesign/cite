@@ -28,9 +28,6 @@ function toggleMeatballs() {
   }
 }
 
-// Close the dropdown if the user clicks outside of it, currently blocking button from closing it also
-
-
 export function MeatballsMenu() {
   return <>
   <svg onClick={btnClick} id="meatballs" className={styles.meatballsMenu} xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">

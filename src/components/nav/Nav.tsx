@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react'
 import styles from "./nav.module.css"
 import { MeatballsMenu } from "../meatballsMenu/MeatballsMenu";
 
-// export let activePage = "page1";
-
+// set active link to page loaded 
 export let activeLink = "li1";
 let inactiveLink = "li2";
 
@@ -13,7 +12,7 @@ export function Nav(props) {
 
   function setActive() {
     document.getElementById(activeLink).className += `${' '} + ${styles.active}`;
-    setInactive(); 
+    setInactive();
   }
 
   function setInactive() {
@@ -31,6 +30,7 @@ export function Nav(props) {
 
   useEffect(() => {
     setActive();
+    console.log(activeLink);
   }, []);
 
   return ( 
