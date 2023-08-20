@@ -84,6 +84,10 @@ figma.ui.onmessage = async (pluginMessage) => {
     figma.ui.postMessage(`apikey: ${apiKey}`);
   }
 
+  if (pluginMessage.type === "reload-plugin") {
+    figma.showUI(__html__, { themeColors: false, height: 568, width: 320 });
+  }
+
   if (pluginMessage.type === "load-keys") {
     if(userId && apiKey) {
       sendId();
@@ -98,14 +102,17 @@ figma.ui.onmessage = async (pluginMessage) => {
     figma.clientStorage.setAsync('userId', pluginMessage.userId); 
     figma.clientStorage.setAsync('apiKey', pluginMessage.apiKey); 
     console.log("Set API key to " + pluginMessage.apiKey);
-    // console.log(await figma.clientStorage.keysAsync()); // gets all keys
   }
 
   if (pluginMessage.type === "delete-keys") {
-    figma.clientStorage.deleteAsync('userId');
-    figma.clientStorage.deleteAsync('apiKey');
-    console.log("Deleted the keys");
-    // console.log(await figma.clientStorage.keysAsync()); // gets all keys
+    if (!userId || !apiKey) {
+      console.log("Nothing to delete")
+    } else {
+      figma.clientStorage.deleteAsync('userId');
+      figma.clientStorage.deleteAsync('apiKey');
+      console.log("Deleted the keys");
+    }
+
   }
 
   if (pluginMessage.type === "add-items") {

@@ -11,26 +11,70 @@ export const messages = {
 
 export function displayModal() {
   let modal = document.getElementById("modal");
-  let modalMessage = document.getElementById("modal-message");
   modal.style.display = "block";
+}
+
+export function savedKeysModal() {
+  displayModal();
+  let modalMessage = document.getElementById("modal-message");
+
+  let button1 = document.getElementById("continue");
+  let button2 = document.getElementById("close");
+
   modalMessage.innerHTML = messages.saved;
+
+  button1.innerHTML = "Search Zotero";
+  button2.style.display = "none";
+
+  button1.onclick = () => {
+    // call figma.showUI() to reload plugin
+    parent.postMessage(
+      { pluginMessage: { type: "reload-plugin" } },
+      "*"
+    );
+  }
+
 }
 
 export function deletedKeysModal() {
-  displayModal();
   let modalMessage = document.getElementById("modal-message");
+  displayModal();
+
+  let button1 = document.getElementById("continue");
+  let button2 = document.getElementById("close");
+
   modalMessage.innerHTML = messages.deleted;
+
+  button1.innerHTML = "Add keys";
+  button2.innerHTML = "Close plugin";
+ 
+  button1.onclick = () => {
+    // call figma.showUI() to reload plugin
+    parent.postMessage(
+      { pluginMessage: { type: "reload-plugin" } },
+      "*"
+    );
+  }
+
+  button2.onclick = () => {
+    parent.postMessage(
+      { pluginMessage: { type: "close-plugin" } },
+      "*"
+    );
+  }
 }
 
 export function addModal(t, a) {
-  displayModal();
   let modal = document.getElementById("modal");
   let modalMessage = document.getElementById("modal-message");
+
   let button1 = document.getElementById("continue");
   let button2 = document.getElementById("close");
 
   let selectionTitle = t;
   let selectionAuthors = a;
+
+  displayModal();
 
   modalMessage.innerHTML = messages.add;
   button2.onclick = () => {
