@@ -27,12 +27,15 @@ export function Results() {
   let item = 1;
   searchResults = document.getElementById('search-results');
   results = event.data.pluginMessage;
+
   if (results === 403) {
     document.getElementById("search-message").innerHTML = "Unable to authenticate user. Did you enter the correct Zotero User ID and API Key?";
   }
+
   if (results === "No keys found") {
     document.getElementById("search-message").innerHTML = "No keys found. Did you enter a Zotero User ID and API Key?";
   }
+
   if (typeof results === "object") {
     if (results.length === 0) {
       document.getElementById("search-message").innerHTML = "There are no results matching your search. Please try again.";
@@ -54,9 +57,13 @@ export function Results() {
                       authorArr.push("Authors not provided");
                   } else {
                       authors.forEach(element => {
-                          let author = element.lastName + ", " + element.firstName;
+                          let author = `${element.firstName} ${element.lastName}`;
                           authorArr.push(author);
                       });
+                      
+                      let addSpace = authorArr.join(", ");
+                      authorArr = [];
+                      authorArr.push(addSpace);
                   }
                   
                   return `<div id=${itemId} class=${styles.resultItem} ><div id=${titleId} class=${styles.title}>${title}</div><div id=${authorId} class=${styles.author}>${authorArr}</div></div>`
@@ -69,12 +76,14 @@ export function Results() {
     }  
 }
 
-  return (<>
-    <div onClick={handleClick} id="search-results" className={styles.searchResultSection}>
+  return (
+    <>
+      <div onClick={handleClick} id="search-results" className={styles.searchResultSection}>
+        
+        <div id="search-message" className={styles.searchMessage}>Find a publication title and author to add to your document.</div>
 
-      <div id="search-message" className={styles.searchMessage}>Find a publication title and author to add to your document.</div>
-
-    </div>
-    <Modal />
-  </>)
+      </div>
+      <Modal />
+    </>
+  )
 }
