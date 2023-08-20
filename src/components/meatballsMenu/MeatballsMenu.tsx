@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Modal, aboutModal } from "../modal/Modal";
 // @ts-ignore
 import styles from "./meatballsMenu.module.css"
 
@@ -36,7 +37,9 @@ export function MeatballsMenu() {
 
     <div id="meatball-drop-content" className={styles.dropdownContent}>
       <a href="https://github.com/" target="_blank" rel="noopener noreferrer">Contribute</a>
-      <a href="#home">About</a>
+      <a onClick={aboutModal} href="#home">About</a>
   </div>
+
+  <Modal />
 </>;
 }
