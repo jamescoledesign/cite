@@ -147,10 +147,12 @@ figma.ui.onmessage = async (pluginMessage) => {
           title: title,
           authors: creators
           }
+
           arr.push(work);
         });
 
         figma.ui.postMessage(arr); 
+        arr = []; // clear array 
 
       } else {
         console.log("No keys found");
