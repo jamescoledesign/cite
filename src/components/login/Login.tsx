@@ -35,13 +35,30 @@ export function Login() {
     showDeleteButton()
   }
 
-// Show Delete keys button
+  // remove disabled class onchange
+  function enableButton() {
+    let btn = document.getElementById("submit-cred");
+    let uidField = document.getElementById("uid-field");
+    let keyField = document.getElementById("apikey-field");
+    //@ts-ignore
+    let ulength = uidField.value.length;
+    //@ts-ignore
+    let klength = keyField.value.length;
+
+    if (ulength < 1 || klength < 1) {
+      btn.className = "disabled"
+    } else if (ulength > 1 && klength > 1) {
+      btn.className = ""
+    }
+  }
+
+  // Show Delete keys button
   function showDeleteButton() {
       let deleteBtn = document.getElementById("delete-cred");
       deleteBtn.style.display = "unset";
   }
 
-// Set user ID and API key from input fields on submit
+  // Set user ID and API key from input fields on submit
   function handleSubmit(e) {
 
     // Prevent the browser from reloading the page
@@ -93,26 +110,7 @@ export function Login() {
     );
     deletedKeysModal();
   }
-
-   // remove disabled class onchange
-   function enableButton() {
-    let btn = document.getElementById("submit-cred");
-    let uidField = document.getElementById("uid-field");
-    let keyField = document.getElementById("apikey-field");
-    
-    //@ts-ignore
-    let ulength = uidField.value.length;
-    //@ts-ignore
-    let klength = keyField.value.length;
-    if (ulength < 1 || klength < 1) {
-      btn.className = `${styles.disabled}`
-    } else if (ulength > 1 && klength > 1) {
-      btn.className = ""
-    }
-   console.log(btn);
-   }
  
-
 useEffect(() => {
   checkKeys();
 }, []);
@@ -132,7 +130,7 @@ useEffect(() => {
               </svg>
         </div>
         <div className="button-group">
-          <button type="submit" id="submit-cred" className={styles.disabled}>Save keys</button>
+          <button type="submit" id="submit-cred" className="disabled">Save keys</button>
           <button type="button" onClick={deleteKeys} id="delete-cred" className={`secondary ${styles.deleteBtn}`}>Delete keys</button>
         </div>
         <a className={styles.helpLink} href="https://www.zotero.org/settings/keys/new" target="_blank" rel="noopener noreferrer">Need help creating an API key?</a>

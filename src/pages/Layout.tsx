@@ -4,6 +4,7 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import { MeatballsMenu } from "../components/meatballsMenu/MeatballsMenu";
 // @ts-ignore
 import styles from "../components/nav/nav.module.css"
+import "../ui.css";
 
 export function Layout() {
 
@@ -35,12 +36,15 @@ export function Layout() {
 
       onmessage = (event) => {
         let results = event.data.pluginMessage;
+        let searchlink = document.getElementById("search-link");
         if (results === "Keys found") {
             navigate("/search");
             setLinks("li2", "li1");
+            searchlink.className = "";
         } else {
             navigate("/");
             setLinks("li1", "li2");
+            searchlink.className = "disabled";
         }
       }
 
@@ -57,7 +61,7 @@ export function Layout() {
                 <li>
                     <Link id="li1" onClick={toggleActive} className={styles.navLink} to="/">API Key</Link>
                 </li>
-                <li>
+                <li id="search-link" className="disabled" >
                     <Link id="li2" onClick={toggleActive} className={styles.navLink} to="/search">Search</Link>
                 </li>
             </ul>

@@ -101,6 +101,11 @@ button.brand {
   
 }
 
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 input {
   background: 1px solid var(--main-bg);
   border: 1px solid var(--light-border);

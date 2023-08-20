@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from 'react'
-import { Modal, displayModal, addModal, messages } from "../modal/Modal";
+import { Modal, addModal } from "../modal/Modal";
 // @ts-ignore
 import styles from "./results.module.css"
 import "../../ui.css"
@@ -28,14 +27,16 @@ export function Results() {
   let item = 1;
   searchResults = document.getElementById('search-results');
   results = event.data.pluginMessage;
+  if (results === 403) {
+    document.getElementById("search-message").innerHTML = "Unable to authenticate user. Did you enter the correct Zotero User ID and API Key?";
+  }
   if (results === "No keys found") {
-    document.getElementById("search-message").innerHTML = "No keys found. Have you entered a Zotero User ID and API Key?";
+    document.getElementById("search-message").innerHTML = "No keys found. Did you enter a Zotero User ID and API Key?";
   }
   if (typeof results === "object") {
     if (results.length === 0) {
       document.getElementById("search-message").innerHTML = "There are no results matching your search. Please try again.";
     } else if ((results.length > 0) ) {
-      // searchResults.onClick = {handleClick};
       // pass search results to UI
         resultsList =
           `<div id="list" class=${styles.resultsList}>` +

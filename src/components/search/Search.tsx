@@ -1,6 +1,4 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
-import { displayModal, deletedKeysModal } from "../modal/Modal";
 // @ts-ignore
 import styles from "./search.module.css"
 import "../../ui.css"

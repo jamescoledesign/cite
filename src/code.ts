@@ -128,7 +128,14 @@ figma.ui.onmessage = async (pluginMessage) => {
       if (userId && apiKey) {
         console.log(`Keys found. UID is ${userId} and API Key is ${apiKey}.`);
         const response = await fetch("https://api.zotero.org/users/" + userId + "/items/?q=" + pluginMessage.query + "&key=" + apiKey);
+        
+        const resultstype = await response.status;
 
+        if (resultstype === 403) {
+          console.log(resultstype);
+          figma.ui.postMessage(resultstype);
+        }
+      
         const results = await response.json();
 
         // create HTML elements for each search result        
