@@ -104,10 +104,6 @@ export function Login() {
   }
 
   function deleteKeys() {
-    parent.postMessage(
-      { pluginMessage: { type: "delete-keys" } },
-      "*"
-    );
     deletedKeysModal();
   }
  

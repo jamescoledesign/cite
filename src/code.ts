@@ -112,7 +112,6 @@ figma.ui.onmessage = async (pluginMessage) => {
       figma.clientStorage.deleteAsync('apiKey');
       console.log("Deleted the keys");
     }
-
   }
 
   if (pluginMessage.type === "add-items") {

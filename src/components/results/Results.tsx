@@ -60,7 +60,6 @@ export function Results() {
                           let author = `${element.firstName} ${element.lastName}`;
                           authorArr.push(author);
                       });
-                      
                       let addSpace = authorArr.join(", ");
                       authorArr = [];
                       authorArr.push(addSpace);
