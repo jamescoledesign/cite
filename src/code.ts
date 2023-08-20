@@ -76,8 +76,18 @@ figma.ui.onmessage = async (pluginMessage) => {
   let userId = await figma.clientStorage.getAsync('userId');
   let apiKey = await figma.clientStorage.getAsync('apiKey');
 
-  if (pluginMessage.type === "check-keys") {
+  function sendId() {
+    figma.ui.postMessage(`userid: ${userId}`);
+  }
+
+  function sendKey() {
+    figma.ui.postMessage(`apikey: ${apiKey}`);
+  }
+
+  if (pluginMessage.type === "load-keys") {
     if(userId && apiKey) {
+      sendId();
+      sendKey() 
       figma.ui.postMessage("Keys found");
     } else {
       figma.ui.postMessage("No keys found");

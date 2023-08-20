@@ -8,6 +8,7 @@ import styles from "../components/nav/nav.module.css"
 export function Layout() {
 
     const [activeLink, setActiveLink] = useState("li1");
+    const navigate = useNavigate();
 
     function setLinks(active: string, inactive: string) {
         setActiveLink(active);
@@ -23,12 +24,17 @@ export function Layout() {
             setLinks("li2", "li1");
         }
       }
-
-      const navigate = useNavigate();
+      
+      function checkKeys() {
+        // check for keys
+        parent.postMessage(
+            { pluginMessage: { type: "load-keys"} },
+            "*"
+        );
+      }
 
       onmessage = (event) => {
         let results = event.data.pluginMessage;
-        console.log(results);
         if (results === "Keys found") {
             navigate("/search");
             setLinks("li2", "li1");
@@ -36,14 +42,6 @@ export function Layout() {
             navigate("/");
             setLinks("li1", "li2");
         }
-      }
-
-      function checkKeys() {
-        // check for keys
-        parent.postMessage(
-            { pluginMessage: { type: "check-keys"} },
-            "*"
-        );
       }
 
       useEffect(() => {

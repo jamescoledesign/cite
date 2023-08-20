@@ -11,6 +11,30 @@ export function Login() {
 
   let userId, apiKey;
 
+  function checkKeys() {
+    // check for keys
+    parent.postMessage(
+        { pluginMessage: { type: "load-keys"} },
+        "*"
+    );
+  }
+
+  // Add keys to input fields if they exist
+  onmessage = (event) => {
+    let msg = event.data.pluginMessage;
+    let uidField = document.getElementById("uid-field");
+    let keyField = document.getElementById("apikey-field");
+    if (msg.includes("userid:")){
+      let uid = msg.split(' ')[1];
+      //@ts-ignore
+      uidField.value = uid;
+    } if (msg.includes("apikey:")){
+      let apikey = msg.split(' ')[1];
+      //@ts-ignore
+      keyField.value = apikey;
+    }
+  }
+
 // Set user ID and API key from input fields on submit
   function handleSubmit(e) {
 
@@ -22,7 +46,6 @@ export function Login() {
     const form = e.target;
     const formData = new FormData(form);
 
-    // Or you can work with it as a plain object:
     const formJson = Object.fromEntries(formData.entries());
     console.log(formJson);
 
@@ -59,7 +82,7 @@ export function Login() {
   }
 
 useEffect(() => {
-  
+  checkKeys();
 }, []);
 
   return <div className="container">
