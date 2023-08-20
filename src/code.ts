@@ -1,32 +1,78 @@
-import { submitChoices } from './submit'
 let arr: any[] = [];
-// check that keys are stored: this is working
-export const authenticate = new Promise((resolve, reject) => {
-  async function getCreds() {
-    let storedId = await figma.clientStorage.getAsync('userId');
-    let storedKey = await figma.clientStorage.getAsync('apiKey');
-    if (storedId && storedKey) {
-      console.log("UID is " + storedId);
-      console.log("API Key is " + storedKey);
-      resolve("User authenticated");
+
+async function submitChoices(length: number, titleStr: string, authorArr: String[]) {
+    if (length === 0) {
+        console.log("nothing to add")
     } else {
-      reject("User not authenticated");
+
+        console.log("submitted");
+        
+        const nodes:SceneNode[] = [];
+        const titleText = figma.createText();
+        const authorText = figma.createText();
+
+        let frame = figma.createFrame();
+        let title = titleStr; // writes to figma
+        let authors = authorArr.toString(); // writes to figma
+
+        titleText.characters = title;
+        authorText.characters = authors;
+
+        frame.appendChild(titleText);
+        frame.appendChild(authorText);
+
+        // Set frame styles
+        frame.name = "Citation";
+        frame.layoutMode = 'VERTICAL';
+        frame.fills = [{ 
+            type: 'SOLID', 
+            color: { r: 0.89, g: 0.95, b: 1 }
+        }];
+        frame.strokes = [{
+            type: 'SOLID', 
+            color: { r: 0, g: 0.33, b: 0.89 }
+        }];
+        frame.strokeWeight = 2;
+        frame.cornerRadius = 6;
+        frame.paddingTop = 20;
+        frame.paddingRight= 20;
+        frame.paddingBottom = 20;
+        frame.paddingLeft = 20;
+        frame.itemSpacing = 10;
+        frame.layoutSizingHorizontal = 'HUG';
+        frame.layoutSizingVertical = 'HUG';
+
+        titleText.maxWidth = 400;
+        authorText.maxWidth = 200;
+
+        // Set font styles
+        titleText.name = 'Title';
+        titleText.fontSize = 16;
+        authorText.name = 'Authors';
+        authorText.textTruncation = "ENDING";
+        authorText.fontSize = 13;
+        authorText.layoutSizingHorizontal = 'FILL';
+        titleText.fills = [{ 
+            type: 'SOLID', 
+            color: { r: 0, g: 0, b: 0 }
+        }];
+
+        nodes.push(frame);
+        figma.viewport.scrollAndZoomIntoView(nodes);
     }
-  }
-  getCreds();
-});
+}
 
 figma.showUI(__html__, { themeColors: false, height: 568, width: 320 });
 
 figma.ui.onmessage = async (pluginMessage) => {
 
-  let selectionTitle = pluginMessage.selectionTitle;
-  let selectionAuthors = pluginMessage.selectionAuthors;
-
   // load fonts
   await figma.loadFontAsync({ family: "Inter", style: "Regular" });
   await figma.loadFontAsync({ family: "Inter", style: "Medium" });
   await figma.loadFontAsync({ family: "Inter", style: "Bold" });
+
+  let selectionTitle = pluginMessage.selectionTitle;
+  let selectionAuthors = pluginMessage.selectionAuthors;
 
   if (pluginMessage.type === "store-keys") {
     figma.clientStorage.setAsync('userId', pluginMessage.userId); 
@@ -50,14 +96,19 @@ figma.ui.onmessage = async (pluginMessage) => {
     figma.closePlugin();
   }
 
+  
   if (pluginMessage.type === "search-terms") {
+
     let userId = await figma.clientStorage.getAsync('userId');
     let apiKey = await figma.clientStorage.getAsync('apiKey');
-    const response = await fetch("https://api.zotero.org/users/" + userId + "/items/?q=" + pluginMessage.query + "&key=" + apiKey);
 
-    const results = await response.json();
+      if (userId && apiKey) {
+        console.log(`Keys found. UID is ${userId} and API Key is ${apiKey}.`);
+        const response = await fetch("https://api.zotero.org/users/" + userId + "/items/?q=" + pluginMessage.query + "&key=" + apiKey);
 
-        // create HTML elements for each search result
+        const results = await response.json();
+
+        // create HTML elements for each search result        
         results.forEach((element: any) => {
           let title = element.data.title;
           let creators = element.data.creators;
@@ -66,10 +117,14 @@ figma.ui.onmessage = async (pluginMessage) => {
           title: title,
           authors: creators
           }
-          arr.push(work); // this is working
-      });
-      figma.ui.postMessage(arr); // send arr to Figma ---- this is working, need to catch arr
-      // console.log(arr);   
-  }
+          arr.push(work);
+        });
 
+        figma.ui.postMessage(arr); 
+
+      } else {
+        console.log("No keys found");
+        figma.ui.postMessage("No keys found"); 
+      }
+  }
 };

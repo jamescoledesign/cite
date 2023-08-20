@@ -35,3 +35,13 @@
     padding-top: 10px;
     opacity: 0.7;
 }
+
+.searchMessage {
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--main-text);
+    opacity: 0.5;
+    padding: 16px;
+    margin-top: 32px;
+}
