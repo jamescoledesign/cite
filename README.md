@@ -16,15 +16,15 @@ Once you’ve added your keys, you can search for anything in your Zotero librar
 ### 2. Create an API Key
 - Go back to zotero.org/settings/keys and click “Create new private key”.
 - Fill out the form. Make sure “Allow library access” and “Read Only” are enabled. Click “Save Key.”
-- Copy the key from the green box. Paste the key into the plugin’s API Key field. Click the “Save Keys” button in the plugin.
-
-Note: The plugin saves your credentials locally, so you do not need to enter this information every time you use it. However, you may need re-enter your credentials if you clear your cache. The plugin does not store your credentials anywhere on the web. 
+- Copy the key from the green box. Paste the key into the plugin’s API Key field. Click the “Save Keys” button in the plugin. 
 
 ### 3. Search your Zotero library
 - In the plugin, enter a keyword into the search field (e.g., cats) and select an item from the list of search results.
 
 ### 4. Add the selected item to your Figma or FigJam layout
 - Confirm your selection and generate the citation.
+
+_Note: The plugin saves your credentials locally, so you do not need to enter this information every time you use it. However, you may need re-enter your credentials if you clear your cache. The plugin does not store your credentials anywhere on the web._
 
 ## Feedback
 How do you use this plugin? How would you like to use it? Any and all feedback is welcome. You can add comments as sticky notes to this [FigJam board](https://www.figma.com/file/66ihP4mDifeDy1ILDh7EzK/Cite-plugin-feedback?type=whiteboard&node-id=1%3A563&t=7G827pVi4jkJPF1L-1).
