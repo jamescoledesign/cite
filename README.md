@@ -47,7 +47,7 @@ If you’d like to help develop this plugin, feel free to submit an issue or pul
 ### Running the plugin locally for development: 
 - Fork this repo
 - Clone your forked repo locally
-- Download and install [Node.js](https://nodejs.org/en/download/) if you haven't already
+- Download and install [Node.js](https://nodejs.org/en/download/) if you haven't already done so
 - Install dependencies: `npm install`
 - Run build and watch in Figma: `npm run dev`
 

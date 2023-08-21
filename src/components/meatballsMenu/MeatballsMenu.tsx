@@ -36,7 +36,8 @@ export function MeatballsMenu() {
     </svg>
 
     <div id="meatball-drop-content" className={styles.dropdownContent}>
-      <a href="https://github.com/" target="_blank" rel="noopener noreferrer">Contribute</a>
+    <a href="https://www.figma.com/file/66ihP4mDifeDy1ILDh7EzK/Cite-plugin-feedback?type=whiteboard&node-id=0%3A1&t=7G827pVi4jkJPF1L-1" target="_blank" rel="noopener noreferrer">Feedback</a>
+      <a href="https://github.com/jamescoledesign/cite" target="_blank" rel="noopener noreferrer">Contribute</a>
       <a onClick={aboutModal} href="#home">About</a>
   </div>
 

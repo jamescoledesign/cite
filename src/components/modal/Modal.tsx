@@ -37,13 +37,15 @@ export function savedKeysModal() {
 
 export function aboutModal() {
   displayModal();
+  let modalTitle = document.getElementById("modal-title");
   let modalMessage = document.getElementById("modal-message");
   let button1 = document.getElementById("continue");
   let button2 = document.getElementById("close");
 
+  modalTitle.innerHTML = "About"
+
   modalMessage.innerHTML = `This plugin was created by <a class="aboutlink" href="https://jamescole.info/about/" target="_blank" rel="noopener noreferrer">James Cole</a>.`;
   
-
   button1.innerHTML = "Close";
   button2.style.display = "none";
 
@@ -53,6 +55,7 @@ export function aboutModal() {
     button2.style.display = "none";
     button1.innerHTML = "Continue";
     button2.innerHTML = "Cancel";
+    modalTitle.innerHTML = "Success"
   }
 }
 
