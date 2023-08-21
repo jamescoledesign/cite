@@ -129,7 +129,7 @@ useEffect(() => {
           <button type="submit" id="submit-cred" className="disabled">Save keys</button>
           <button type="button" onClick={deleteKeys} id="delete-cred" className={`secondary ${styles.deleteBtn}`}>Delete keys</button>
         </div>
-        <a className={styles.helpLink} href="https://www.zotero.org/settings/keys/new" target="_blank" rel="noopener noreferrer">Need help creating an API key?</a>
+        <a className={styles.helpLink} href="https://www.figma.com/file/3e3oxLwHto7AmPjPhhFCyo/Cite-plugin---guide?type=design&node-id=0%3A1&mode=design&t=sj2qTztbp6IwKGep-1" target="_blank" rel="noopener noreferrer">Need help creating an API key?</a>
       </div>
       </form>
   </div>
