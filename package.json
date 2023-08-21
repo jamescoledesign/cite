@@ -1,5 +1,5 @@
 {
-  "name": "cite-react",
+  "name": "Cite",
   "version": "1.0.0",
   "description": "A plugin for adding citations from your Zotero library to Figma or FigJam layouts",
   "main": "code.js",
