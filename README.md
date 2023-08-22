@@ -4,17 +4,17 @@
 
 The Cite plugin allows you to add citations from Zotero to your Figma files and FigJam boards. You must have a Zotero account, an API Key, and be online to use the plugin.
 
-To search your private libraries, you'll need to provide the plugin your Zotero User ID and API Key. Click here to log in to Zotero and create an API key in your Zotero account settings. 
+To search your private libraries, you'll need to provide the plugin your Zotero User ID and API Key.
 
 Once you’ve added your keys, you can search for anything in your Zotero library. The plugin will return a list of titles and authors. You can select an item from the search results and add it to your layout. 
 
 ## How to use
 
 ### 1. Get your User ID
-- Go to zotero.org/settings/keys and copy your userid. Run the plugin and paste your userid into the plugin’s User ID field.
+- Go to [zotero.org/settings/keys](https://www.zotero.org/settings/keys) and copy your userid. Run the plugin and paste your userid into the plugin’s User ID field.
 
 ### 2. Create an API Key
-- Go back to zotero.org/settings/keys and click “Create new private key”.
+- Go back to [zotero.org/settings/keys](https://www.zotero.org/settings/keys) and click “Create new private key”.
 - Fill out the form. Make sure “Allow library access” and “Read Only” are enabled. Click “Save Key.”
 - Copy the key from the green box. Paste the key into the plugin’s API Key field. Click the “Save Keys” button in the plugin. 
 
@@ -39,19 +39,19 @@ Future enhancements will be based on user feedback. A few ideas:
 ## How to contribute
 If you’d like to help develop this plugin, feel free to submit an issue or pull request. Code contributors should fork the repo and create a working branch for new changes. Once you’ve made changes, you can create a pull request for review. 
 
-### Some useful guides for contributors:
+### Some useful guides for contributors
 - [Zotero Web API documentation](https://www.zotero.org/support/dev/web_api/v3/start)
 - [Figma Plugin API documentation](https://www.figma.com/plugin-docs/)
 - Example contribution guide: [GitHub docs contributing guide](https://github.com/github/docs/blob/main/CONTRIBUTING.md)
 
-### Running the plugin locally for development: 
+### Running the plugin locally for development 
 - Fork this repo
 - Clone your forked repo locally
 - Download and install [Node.js](https://nodejs.org/en/download/) if you haven't already done so
 - Install dependencies: `npm install`
 - Run build and watch in Figma: `npm run dev`
 
-### Acknowledgements
+## Acknowledgements
 - This plugin uses the [webpack-react](https://github.com/figma/plugin-samples/tree/master/webpack-react) plugin sample from Figma as a base. 
 
 - Icons used in the plugin are mostly from [Streamline](https://www.figma.com/community/plugin/852192486284901337/Streamline-Icons%2C-Illustrations%2C-Elements%2C-Emoji).
