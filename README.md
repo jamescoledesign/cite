@@ -10,8 +10,6 @@ Once you’ve added your keys, you can search for anything in your Zotero librar
 
 - [Visit the Figma community page](https://www.figma.com/community/plugin/1259416813958499299/Cite)
 
-- [Try the plugin](https://www.figma.com/file/TJGetfK3lPzkb4uhroOpj0/Cite-plugin---guide-(Copy)?type=design&node-id=0-1&mode=design&t=fqMNwbUjnJFqOFAx-0) (opens a Figma file)
-
 ## How to use
 
 ### 1. Get your User ID
