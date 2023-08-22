@@ -8,9 +8,9 @@ To search your private libraries, you'll need to provide the plugin your Zotero 
 
 Once you’ve added your keys, you can search for anything in your Zotero library. The plugin will return a list of titles and authors. You can select an item from the search results and add it to your layout. 
 
-[Figma community page](https://www.figma.com/community/plugin/1259416813958499299/Cite)
+**[Figma community page](https://www.figma.com/community/plugin/1259416813958499299/Cite)**
 
-[Try it out](https://www.figma.com/file/TJGetfK3lPzkb4uhroOpj0/Cite-plugin---guide-(Copy)?type=design&node-id=0-1&mode=design&t=fqMNwbUjnJFqOFAx-0)
+**[Try it out](https://www.figma.com/file/TJGetfK3lPzkb4uhroOpj0/Cite-plugin---guide-(Copy)?type=design&node-id=0-1&mode=design&t=fqMNwbUjnJFqOFAx-0)**
 
 ## How to use
 
