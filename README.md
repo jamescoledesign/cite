@@ -32,7 +32,13 @@ _Note: The plugin saves your credentials locally, so you do not need to enter th
 How do you use this plugin? How would you like to use it? Any and all feedback is welcome. You can add comments as sticky notes to this [FigJam board](https://www.figma.com/file/66ihP4mDifeDy1ILDh7EzK/Cite-plugin-feedback?type=whiteboard&node-id=1%3A563&t=7G827pVi4jkJPF1L-1).
 
 ## Roadmap
-Future enhancements will be based on user feedback. A few ideas: 
+Future enhancements will be based on user feedback. Current priorities and ideas are listed below.
+#### Priorities 
+|   Feature   | Description |   Credit    |    Status   |
+| ----------- | ----------- | ----------- | ----------- |
+| Change citation format   | E.g., include first author name, year, and title of the paper | Riia Jarvenpaa | Discovery |
+
+#### More ideas: 
 - Add notes to a citation
 - Export an image of a source 
 - Include tags from sources
